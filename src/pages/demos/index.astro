@@ -2,87 +2,160 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 const base = import.meta.env.BASE_URL;
 ---
-<BaseLayout title="Interactive Code Demos | Technical Documentation Portfolio" description="Interactive examples of API integration, form validation, semantic HTML, responsive CSS, and jQuery.">
-  <section class="page-hero wrap"><p class="eyebrow">03 / INTERACTIVE CODE DEMONSTRATIONS</p><h1>Code examples that show both behavior and implementation choices.</h1><p class="lede">These small demonstrations focus on useful front-end fundamentals: accessible forms, asynchronous requests, clear feedback, responsive layouts, and maintainable markup. The weather demo uses public APIs and does not require an API key.</p></section>
-  <section class="section wrap" id="weather">
+<BaseLayout
+  title="Weather API Demo | Mike Kelley"
+  description="An interactive weather lookup demonstrating API integration, input validation, asynchronous requests, accessible feedback, and technical communication."
+>
+  <section class="page-hero wrap">
+    <p class="eyebrow">CODE DEMO / API INTEGRATION</p>
+    <h1>A small working app, with the decisions explained.</h1>
+    <p class="lede">I built this weather lookup to demonstrate the full path from user input to an external API response, then documented how the pieces fit together. The application is intentionally small. The focus is on clear behavior, readable implementation, and explaining technical choices.</p>
+    <div class="actions">
+      <a class="button primary" href="#try-it">Try the demo</a>
+      <a class="button secondary" href="https://github.com/MikeKelley89/openWeatherApi" target="_blank" rel="noreferrer">View source on GitHub ↗</a>
+    </div>
+    <div class="proof-row">
+      <div><strong>JavaScript + jQuery</strong><span>Form handling and asynchronous requests</span></div>
+      <div><strong>OpenWeather APIs</strong><span>Geocoding and current conditions</span></div>
+      <div><strong>Written by me</strong><span>Application, interface, and walkthrough</span></div>
+    </div>
+  </section>
+
+  <section class="section band" id="try-it">
+    <div class="wrap">
+      <div class="section-heading">
+        <p class="eyebrow">LIVE DEMONSTRATION</p>
+        <h2>Look up weather by US ZIP code</h2>
+        <p>Enter a five-digit US ZIP code. The app resolves it to coordinates, requests current conditions and the daily summary, and displays the first alert if the API returns one.</p>
+      </div>
+
+      <div class="weather-form">
+        <form id="localWeather">
+          <label for="zip">US ZIP code</label>
+          <div class="input-row">
+            <input id="zip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" maxlength="5" placeholder="e.g. 84010" aria-describedby="zipHelp zipStatus" required />
+            <button id="findWeather" class="button primary" type="submit" disabled>Check weather</button>
+          </div>
+          <p class="form-help" id="zipHelp">Use five digits. ZIP+4 is not supported.</p>
+          <p class="form-help error-text" id="zipStatus" hidden>Enter a valid five-digit US ZIP code.</p>
+        </form>
+        <p class="weather-status" id="weatherStatus" role="status" aria-live="polite">Enter a ZIP code to look up local conditions.</p>
+
+        <div class="weather-result" id="weatherError" role="alert" hidden>
+          <strong>Weather lookup failed</strong>
+          <p><span id="errorCode"></span><span id="errorMsg"></span></p>
+        </div>
+
+        <div class="weather-result" id="weatherAlert" role="alert" hidden>
+          <p class="eyebrow">WEATHER ALERT</p>
+          <h3 id="event">Weather alert</h3>
+          <p><strong>Issued by:</strong> <span id="sender_name"></span></p>
+          <p><strong>Starts:</strong> <span id="start"></span></p>
+          <p><strong>Ends:</strong> <span id="end"></span></p>
+          <p><strong>Description:</strong> <span id="description"></span></p>
+          <p><strong>Type:</strong> <span id="tags"></span></p>
+        </div>
+
+        <div class="weather-result" id="weatherResults" hidden>
+          <h3 id="conditions">Current conditions</h3>
+          <div class="weather-main">
+            <div>
+              <div class="weather-temp"><span id="main_temp">--</span><span aria-label="degrees Fahrenheit">°F</span></div>
+              <p>Current temperature</p>
+            </div>
+            <div class="weather-meta">
+              <span>Wind speed<strong><span id="wind_speed">--</span> mph</strong></span>
+              <span>Wind direction<strong><span id="wind_direction">--</span>°</strong></span>
+            </div>
+          </div>
+          <p id="weather_conditions"></p>
+        </div>
+        <p class="small-note">This is a portfolio demonstration, not an emergency weather service. It uses a configured OpenWeather API credential in client-side code, so the credential is visible to visitors. Provider-side restrictions and usage limits are important for this kind of public demo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap">
     <div class="section-heading">
-      <p class="eyebrow">DEMO 01 · API INTEGRATION</p>
-      <h2>OpenWeather API: ZIP-code weather lookup</h2>
-      <p>This interactive demo is adapted from my original jQuery implementation. It validates a five-digit US ZIP code, uses OpenWeather's Geocoding API to resolve latitude and longitude, then requests current conditions and the daily forecast from One Call API 3.0. Available weather alerts are displayed with the results.</p>
-      <p class="small-note">Enter a US ZIP code to try it. The API credential is client-side, as in the original project, so it is visible to visitors and must be protected with provider-side restrictions and usage limits.</p>
-    </div>
-
-    <div class="weather-form">
-      <form id="localWeather">
-        <label for="zip">US ZIP code</label>
-        <div class="input-row">
-          <input id="zip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" maxlength="5" placeholder="e.g. 84010" aria-describedby="zipHelp zipStatus" required />
-          <button id="findWeather" class="button primary" type="submit" disabled>Check weather</button>
-        </div>
-        <p class="form-help" id="zipHelp">Use a five-digit ZIP code, such as 84010.</p>
-        <p class="form-help error-text" id="zipStatus" hidden>Enter a valid five-digit US ZIP code.</p>
-      </form>
-      <p class="weather-status" id="weatherStatus" role="status" aria-live="polite">Enter a ZIP code to look up local conditions.</p>
-
-      <div class="weather-result" id="weatherError" role="alert" hidden>
-        <strong>Weather lookup failed</strong>
-        <p><span id="errorCode"></span><span id="errorMsg"></span></p>
-      </div>
-
-      <div class="weather-result" id="weatherAlert" role="alert" hidden>
-        <p class="eyebrow">WEATHER ALERT</p>
-        <h3 id="event">Weather alert</h3>
-        <p><strong>Issued by:</strong> <span id="sender_name"></span></p>
-        <p><strong>Starts:</strong> <span id="start"></span></p>
-        <p><strong>Ends:</strong> <span id="end"></span></p>
-        <p><strong>Description:</strong> <span id="description"></span></p>
-        <p><strong>Type:</strong> <span id="tags"></span></p>
-      </div>
-
-      <div class="weather-result" id="weatherResults" hidden>
-        <h3 id="conditions">Current conditions</h3>
-        <div class="weather-main">
-          <div>
-            <div class="weather-temp"><span id="main_temp">--</span><span aria-label="degrees Fahrenheit">°F</span></div>
-            <p>Current temperature</p>
-          </div>
-          <div class="weather-meta">
-            <span>Wind speed<strong><span id="wind_speed">--</span> mph</strong></span>
-            <span>Wind direction<strong><span id="wind_direction">--</span>°</strong></span>
-          </div>
-        </div>
-        <p id="weather_conditions"></p>
-      </div>
-    </div>
-
-    <div class="section-heading" style="margin-top:48px">
-      <p class="eyebrow">IMPLEMENTATION NOTES</p>
-      <h2>How the request works</h2>
+      <p class="eyebrow">UNDER THE HOOD</p>
+      <h2>From ZIP code to weather data</h2>
+      <p>The app makes two requests because the weather endpoint needs coordinates, while most people know their ZIP code rather than their latitude and longitude.</p>
     </div>
     <div class="pipeline">
-      <article><span>01</span><h3>Validate input</h3><p>jQuery checks that the submitted value contains exactly five digits and disables the button until the input is valid.</p></article>
-      <article><span>02</span><h3>Geocode the ZIP</h3><p>The Geocoding API resolves the ZIP code to a location name and latitude/longitude coordinates.</p></article>
-      <article><span>03</span><h3>Request weather</h3><p>The coordinates are passed to One Call API 3.0, with imperial units and hourly/minutely data excluded.</p></article>
-      <article><span>04</span><h3>Render the response</h3><p>The page displays current temperature, wind, the daily summary, and the first weather alert when one is returned.</p></article>
+      <article><span>01</span><h3>Validate input</h3><p>Check that the value contains exactly five digits before starting the request flow.</p></article>
+      <article><span>02</span><h3>Resolve location</h3><p>Send the ZIP code to OpenWeather's Geocoding API to get a location name and coordinates.</p></article>
+      <article><span>03</span><h3>Request conditions</h3><p>Pass latitude and longitude to One Call API 3.0, requesting imperial units and excluding unused data.</p></article>
+      <article><span>04</span><h3>Present the response</h3><p>Update the page with temperature, wind, a daily summary, and the first available alert.</p></article>
     </div>
-    <p class="small-note" style="margin-top:24px">The implementation preserves the original demo's core approach while placing the interactive form and results inside this portfolio's shared visual system. It is a demonstration, not an emergency weather service.</p>
   </section>
-  <section class="section band"><div class="wrap"><div class="section-heading"><p class="eyebrow">DEMO 02 · HTML / CSS</p><h2>Responsive content layout</h2><p>A standalone sample illustrating semantic structure, responsive behavior, and content-first layout.</p><a class="button secondary" href={`${base}samples/responsive-layout.html`}>Open responsive layout sample ↗</a></div>
-  <div class="sample-grid"><article class="sample"><span class="tag">Structure</span><h3>Semantic HTML</h3><p>Meaningful headings, landmarks, lists, and links make content easier to navigate and maintain.</p></article><article class="sample"><span class="tag">Presentation</span><h3>Responsive CSS</h3><p>Flexible grids and breakpoints adapt the layout to different viewport widths.</p></article><article class="sample"><span class="tag">Accessibility</span><h3>Usable by default</h3><p>Readable contrast, visible focus, and logical document structure support more readers.</p></article></div></div></section>
-  <section class="section wrap"><div class="section-heading"><p class="eyebrow">DEMO 03 · JAVASCRIPT / JQUERY</p><h2>Progressive enhancement</h2><p>This sample demonstrates interaction and DOM updates with jQuery. It is a small standalone example, separate from the Astro site.</p><a class="button secondary" href={`${base}samples/jquery-example.html`}>Open jQuery sample ↗</a></div><div class="code-panel"><pre><code>$('#search-form').on('submit', function (event) &#123;
-  event.preventDefault();
-  const query = $('#search').val().trim();
 
-  if (!query) &#123;
-    $('#message').text('Enter a search term.');
-    return;
-  &#125;
+  <section class="section band">
+    <div class="wrap">
+      <div class="section-heading">
+        <p class="eyebrow">IMPLEMENTATION CHOICES</p>
+        <h2>What this example demonstrates</h2>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card"><span class="feature-number">01 / INPUT</span><h3>Validation before submission</h3><p>The interface checks the ZIP format and disables the submit button until the input is valid. Format validation does not guarantee that a ZIP code exists.</p></article>
+        <article class="feature-card"><span class="feature-number">02 / ASYNC</span><h3>Loading and error feedback</h3><p>The interface tells the user when a lookup is in progress and distinguishes failed requests from returned weather data.</p></article>
+        <article class="feature-card"><span class="feature-number">03 / ACCESSIBILITY</span><h3>Clear, perceivable updates</h3><p>The form has a visible label, the status uses a live region, and errors and results are revealed in the page rather than relying on color alone.</p></article>
+      </div>
+    </div>
+  </section>
 
-  $('#message').text('Ready to search for: ' + query);
-&#125;);</code></pre><p class="small-note">Illustrative code snippet. The linked standalone sample contains the runnable implementation.</p></div></section>
-  <section class="section band"><div class="wrap"><h2>Engineering decisions worth calling out</h2><div class="check-grid"><p><strong>Input validation</strong><br />Reject malformed input before making a network request.</p><p><strong>Loading state</strong><br />Tell the user what is happening and prevent duplicate submissions.</p><p><strong>Error handling</strong><br />Provide useful feedback when a service is unavailable or returns no result.</p><p><strong>Accessible updates</strong><br />Use labels and live regions so dynamic feedback is perceivable.</p></div></div></section>
+  <section class="section wrap">
+    <div class="two-col">
+      <div>
+        <p class="eyebrow">TECHNICAL COMMUNICATION</p>
+        <h2>The explanation is part of the project.</h2>
+        <p>I also wrote a walkthrough that explains the API flow, key code paths, trade-offs, and limitations. It was written in an informal blog style rather than as formal product documentation, but the goal is the same: help a reader understand what the system does and why.</p>
+        <p><a class="text-link" href="https://mikekelley89.github.io/openWeatherApi/demos/openweather.html" target="_blank" rel="noreferrer">Read the original code walkthrough ↗</a></p>
+      </div>
+      <div class="code-panel">
+        <pre><code>// 1. Resolve a ZIP code to coordinates
+GET /geo/1.0/zip
+
+// 2. Request weather for those coordinates
+GET /data/3.0/onecall
+
+// 3. Present the response
+current conditions + daily summary + alerts</code></pre>
+        <p class="small-note">Simplified request flow, not executable code.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="wrap">
+      <div class="section-heading">
+        <p class="eyebrow">SCOPE AND LIMITATIONS</p>
+        <h2>A demonstration, not a production weather product</h2>
+        <p>This project is intentionally small. A production version would need additional work, and identifying that work is part of the engineering judgment this sample is meant to show.</p>
+      </div>
+      <div class="check-grid">
+        <p><strong>Credential management</strong><br />Avoid exposing a reusable API key in browser code. Use a server-side proxy or another provider-supported approach, with restrictions and monitoring.</p>
+        <p><strong>Real input validation</strong><br />Check whether a ZIP code resolves successfully, not only whether it matches five digits.</p>
+        <p><strong>Complete alert handling</strong><br />Iterate through all returned alerts instead of displaying only the first one.</p>
+        <p><strong>More resilient states</strong><br />Add tests and clearer handling for empty responses, rate limits, timeouts, and partial API data.</p>
+      </div>
+      <p class="small-note" style="margin-top:26px">I chose a limited scope to keep the example focused. These are known areas for improvement, not claims that the app is production-ready.</p>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="contact-strip">
+      <div>
+        <p class="eyebrow">MORE FROM MY PORTFOLIO</p>
+        <h2>Technical writing, implementation, and the space between them.</h2>
+        <p>My work spans product documentation, API and software documentation, docs-as-code workflows, and hands-on front-end examples.</p>
+      </div>
+      <div class="actions">
+        <a class="button primary" href={`${base}writing/`}>View writing samples</a>
+        <a class="button secondary" href={base}>Back to home</a>
+      </div>
+    </div>
+  </section>
 
   <script is:inline src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script is:inline src="/scripts/weather-demo.js"></script>
-
 </BaseLayout>
