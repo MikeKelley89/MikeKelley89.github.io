@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout
+  title="Writing Samples | Mike Kelley"
+  description="Public technical writing samples spanning B2B SaaS help systems, API documentation, enterprise printer documentation, open-source tutorials, and published articles."
+>
+  <section class="page-hero wrap">
+    <p class="eyebrow">PORTFOLIO / WRITING SAMPLES</p>
+    <h1>Documentation people can use, built around the work they need to do.</h1>
+    <p class="lede">Much of my recent work has been for security and enterprise-software companies whose product documentation is available only behind a firewall. The examples below are public work that gives a representative view of my documentation, interface design, API work, hardware content, and published writing.</p>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-heading">
+      <p class="eyebrow">SELECTED WORK</p>
+      <h2>Product documentation and help systems</h2>
+      <p>These examples show different parts of the job: creating task-oriented product content, designing the place where people find it, and explaining technical behavior clearly.</p>
+    </div>
+    <div class="feature-grid">
+      <article class="feature-card">
+        <span class="feature-number">01 / B2B SAAS</span>
+        <h3>inContact MAX documentation and help interface</h3>
+        <p>This is the work I’m most proud of. I wrote the entirety of the MAX documentation and led the design and development of its help interface, using Google Material as the design standard. When the first version of the new help system launched in 2015, MadCap Software contacted us about featuring it in a customer showcase. The documentation remains relatively unchanged.</p>
+        <p><a href="https://help.incontact.com/Content/Agent/MAX/MAX.htm" target="_blank" rel="noopener noreferrer">View inContact MAX help ↗</a></p>
+      </article>
+      <article class="feature-card">
+        <span class="feature-number">02 / API + JAVASCRIPT</span>
+        <h3>ZIP-code weather API application</h3>
+        <p>I built a small web application that takes a US ZIP code, looks up the location, and requests weather data from an API. The accompanying page walks through the implementation in an intentionally informal, blog-style format rather than a formal product-documentation voice.</p>
+        <p><a href="https://mikekelley89.github.io/openWeatherApi/demos/openweather.html" target="_blank" rel="noopener noreferrer">View the weather app and code walkthrough ↗</a></p>
+        <p class="small-note">There is also an adapted interactive version in this portfolio’s <a href={`${base}demos/`}>Code Demos</a> section.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="wrap">
+      <div class="section-heading">
+        <p class="eyebrow">HARDWARE DOCUMENTATION</p>
+        <h2>Enterprise printer and copier content at HP</h2>
+        <p>I wrote content for HP enterprise-level printer and copier hardware. These publicly available manuals are examples of documentation for complex physical products, where instructions need to be clear, accurate, and usable.</p>
+      </div>
+      <div class="project-grid">
+        <article class="sample">
+          <span class="tag">HP · Manual</span>
+          <h3>Enterprise printer/copy system</h3>
+          <p>Publicly available HP manual.</p>
+          <a href="https://h10032.www1.hp.com/ctg/Manual/c00901198.pdf" target="_blank" rel="noopener noreferrer">Read manual (PDF) ↗</a>
+        </article>
+        <article class="sample">
+          <span class="tag">HP · Manual</span>
+          <h3>Enterprise printer/copy system</h3>
+          <p>Publicly available HP manual.</p>
+          <a href="https://h10032.www1.hp.com/ctg/Manual/c01299550.pdf" target="_blank" rel="noopener noreferrer">Read manual (PDF) ↗</a>
+        </article>
+        <article class="sample">
+          <span class="tag">HP · Manual</span>
+          <h3>Enterprise printer/copy system</h3>
+          <p>Publicly available HP manual.</p>
+          <a href="https://h10032.www1.hp.com/ctg/Manual/c00872967.pdf" target="_blank" rel="noopener noreferrer">Read manual (PDF) ↗</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-heading">
+      <p class="eyebrow">DEVELOPER AND OPEN-SOURCE CONTENT</p>
+      <h2>Installation tutorials at SaltStack</h2>
+      <p>At SaltStack, I worked almost exclusively on the enterprise product. Most of the open-source documentation is community-maintained today, but this installation tutorial is one of the public resources I worked on.</p>
+    </div>
+    <article class="writing-preview">
+      <p class="tag">SALTSTACK · TUTORIAL</p>
+      <h3>Installing Salt</h3>
+      <p>This tutorial is a practical example of developer-facing instructional content: readers arrive with a goal, need to choose the right path for their environment, and need steps they can follow to reach a working installation.</p>
+      <p><a href="https://docs.saltproject.io/salt/user-guide/en/latest/topics/installation.html" target="_blank" rel="noopener noreferrer">Read the Salt installation guide ↗</a></p>
+    </article>
+  </section>
+
+  <section class="section band">
+    <div class="wrap">
+      <div class="section-heading">
+        <p class="eyebrow">PUBLISHED ARTICLES</p>
+        <h2>Writing for professional and general audiences</h2>
+        <p>Alongside technical documentation, I’ve had two articles published for different audiences and purposes.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="feature-number">01 / INDUSTRY PUBLICATION</span>
+          <h3>ISTC Communicator: MadWorld</h3>
+          <p>An article about the MadWorld user conference, published in the Communicator from the Institute of Scientific and Technical Communicators.</p>
+          <p><a href="https://s3.amazonaws.com/m.k.c/ISTC_Comm1706_MadWorld.pdf" target="_blank" rel="noopener noreferrer">Read the article (PDF) ↗</a></p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">02 / NEWS</span>
+          <h3>KSL published article</h3>
+          <p>A school assignment that I developed into a published article for KSL, a Utah-based NBC affiliate.</p>
+          <p><a href="https://www.ksl.com/article/18505271" target="_blank" rel="noopener noreferrer">Read the KSL article ↗</a></p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">03 / MORE EXAMPLES</span>
+          <h3>Code and documentation in context</h3>
+          <p>For a working example that combines an application with an explanation of its implementation, visit the weather API demo.</p>
+          <p><a href="https://mikekelley89.github.io/openWeatherApi/demos/openweather.html" target="_blank" rel="noopener noreferrer">Open the weather API walkthrough ↗</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="contact-strip">
+      <div>
+        <p class="eyebrow">KEEP EXPLORING</p>
+        <h2>Writing is one part of the work.</h2>
+        <p>I also build documentation workflows, work directly with code and web technologies, and lead teams responsible for accurate, on-time deliverables.</p>
+      </div>
+      <div class="actions">
+        <a class="button primary" href={`${base}docs-as-code/`}>Explore docs-as-code</a>
+        <a class="button secondary" href={`${base}demos/`}>Try code demos</a>
+        <a class="button secondary" href={`${base}resume/`}>View career history</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
