@@ -11,8 +11,8 @@ const base = import.meta.env.BASE_URL;
   <section class="page-hero wrap resume-hero">
     <p class="eyebrow">COMPLETE CAREER HISTORY · DOCUMENTATION · LEADERSHIP</p>
     <h1>Mike Kelley</h1>
-    <p class="resume-role">Technical documentation <span>·</span> Documentation engineering <span>·</span> Team leadership</p>
-    <p class="lede">Technical writer and documentation leader with 15+ years of experience, from highly technical systems and developer documentation to clear instructions for nontechnical audiences. I work across content, code, tooling, and team processes to make documentation accurate, useful, and maintainable.</p>
+    <p class="resume-role">Technical documentation <span>·</span> Documentation engineering <span>·</span> AI-assisted workflows <span>·</span> Team leadership</p>
+    <p class="lede">Technical writer and documentation leader with 15+ years of experience, from highly technical systems and developer documentation to clear instructions for nontechnical audiences. I work across content, code, AI-assisted workflows, tooling, and team processes to make documentation accurate, useful, and maintainable.</p>
     <div class="resume-highlights" aria-label="Career highlights"><div><strong>15+ years</strong><span>Technical documentation</span></div><div><strong>8 people</strong><span>Current team leadership</span></div><div><strong>19 people</strong><span>Prior QA supervision</span></div></div>
     <div class="actions">
       <a class="button primary" href={`${base}MikeKelley-resume.pdf`} download>Download resume (PDF)</a>
@@ -36,6 +36,7 @@ const base = import.meta.env.BASE_URL;
                 <li>Lead a team of eight documentation specialists and final inspectors supporting complex defense, nuclear, and commercial manufacturing programs.</li>
                 <li>Manage documentation priorities, delivery schedules, process improvements, and cross-functional resolution of quality and compliance issues across concurrent programs.</li>
                 <li>Coach team members through performance goals and individualized Personal Development Plans, supporting technical growth, accountability, and continuous improvement.</li>
+                <li>Developing a multi-agent AI documentation-review system (in progress), with a roadmap to evaluate documentation packages against SOPs, SWIs, industry specifications, and customer requirements from three perspectives: Petersen, end user, and customer.</li>
               </ul>
             </div>
           </article>
@@ -143,20 +144,20 @@ const base = import.meta.env.BASE_URL;
 
       <aside class="resume-sidebar">
         <div class="resume-card">
-          <p class="eyebrow">CORE SKILLS</p>
+          <p class="eyebrow">EXPERTISE</p>
           <h3>Tools and practice</h3>
-          <ul class="plain-list">
-            <li>MadCap Flare; Certified Advanced Developer</li>
-            <li>XML, HTML5, CSS3</li>
-            <li>Git and docs-as-code</li>
-            <li>jQuery and JavaScript</li>
-            <li>Python, docstrings, and type hints</li>
-            <li>API and developer documentation</li>
-            <li>Prismic</li>
-            <li>Agile methodology</li>
-            <li>Jira and Atlassian Confluence</li>
-            <li>Team leadership, training, and coaching</li>
-          </ul>
+          <dl class="expertise-list">
+            <dt>Technical Documentation</dt>
+            <dd>API and developer documentation · Information architecture · Regulatory documentation · Single-source publishing</dd>
+            <dt>Documentation Engineering</dt>
+            <dd>Docs-as-code · Git · CI/CD · MadCap Flare (Certified Advanced Developer) · Jekyll · PrinceXML</dd>
+            <dt>AI-Assisted Workflows</dt>
+            <dd>Prompt engineering · AI-assisted writing and development · Content review and quality assurance</dd>
+            <dt>Technical Skills</dt>
+            <dd>XML · HTML/CSS · JavaScript · Python · Jira · Confluence</dd>
+            <dt>Leadership &amp; Operations</dt>
+            <dd>Team leadership · Documentation strategy · Process improvement · Cross-functional collaboration</dd>
+          </dl>
         </div>
 
         <div class="resume-card">
@@ -228,6 +229,10 @@ const base = import.meta.env.BASE_URL;
   .resume-sidebar :global(.resume-card:nth-child(3)) { border-top: 4px solid #9bb5d1; }
   .resume-sidebar :global(.resume-card h3) { margin: 0 0 12px; font-size: 1.12rem; }
   .resume-sidebar :global(.plain-list) { margin: 0; padding-left: 18px; }
+  .expertise-list { margin: 0; }
+  .expertise-list dt { color: #142b4a; font-size: .88rem; font-weight: 750; margin-top: 15px; }
+  .expertise-list dt:first-child { margin-top: 0; }
+  .expertise-list dd { color: #40536a; font-size: .88rem; line-height: 1.55; margin: 4px 0 0; }
   .resume-sidebar :global(li) { font-size: .88rem; line-height: 1.55; padding: 6px 0; color: #40536a; }
   @media (max-width: 850px) { .resume-content :global(.resume-section) { grid-template-columns: 1fr; } .resume-sidebar { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-items: start; } .resume-sidebar :global(.resume-card:first-child) { grid-row: span 2; } }
   @media (max-width: 580px) { .resume-hero { margin-top: 16px; padding: 30px 22px; } .resume-role { font-size: .9rem; } .resume-highlights { gap: 15px 22px; } .resume-timeline { padding-left: 17px; } .resume-job { padding: 20px 18px !important; } .resume-job::before { left: -25px; } .resume-sidebar { display: flex; } }
