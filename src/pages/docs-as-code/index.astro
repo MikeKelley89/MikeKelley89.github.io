@@ -13,6 +13,7 @@ const base = import.meta.env.BASE_URL;
     <div class="actions">
       <a class="button primary" href="#saltstack">SaltStack migration</a>
       <a class="button secondary" href="#portfolio">How this site ships</a>
+      <a class="button secondary" href="#quality-gates">Quality gates</a>
       <a class="button secondary" href="https://github.com/MikeKelley89/MikeKelley89.github.io" target="_blank" rel="noopener noreferrer">View site repository ↗</a>
     </div>
   </section>
@@ -106,6 +107,57 @@ const base = import.meta.env.BASE_URL;
         <h3>Staging and promotion</h3>
         <p>Build once, test the artifact in staging, and promote that same artifact to production after approval instead of rebuilding different content for each environment.</p>
       </article>
+    </div>
+  </section>
+
+
+  <section class="section band" id="quality-gates">
+    <div class="wrap">
+      <div class="section-heading">
+        <p class="eyebrow">PIPELINE INTEGRATIONS / QUALITY GATES</p>
+        <h2>Automated checks before publication</h2>
+        <p>A docs-as-code pipeline can validate more than whether the site builds. I would combine deterministic linting and standards checks with AI-assisted editorial feedback, then route the findings into pull-request reviews. These are integration options, not features currently enabled in this portfolio's deployment workflow.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="feature-number">01 / LINTING</span>
+          <h3>Content and structural linting</h3>
+          <p>Run Markdownlint, Vale, link validation, and code-example checks on changed files. Catch broken links, heading hierarchy problems, malformed Markdown, and common writing issues before a reviewer spends time on them.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">02 / STANDARDS</span>
+          <h3>Style guides and STE compliance</h3>
+          <p>Apply organization-specific terminology, preferred wording, and style rules through Vale or custom checks. For projects requiring ASD-STE100 Simplified Technical English, use a dedicated ruleset or STE-aware checker to flag vocabulary and sentence-structure issues for qualified human review. Automated checks support compliance; they do not certify it.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">03 / AI REVIEW</span>
+          <h3>AI-assisted editorial feedback</h3>
+          <p>Use an AI reviewer to comment on clarity, missing prerequisites, ambiguous instructions, audience fit, and consistency with nearby content. Provide the relevant style guide and approved source context, and return suggestions in the PR rather than silently rewriting content.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">04 / TECHNICAL ACCURACY</span>
+          <h3>Schema and example validation</h3>
+          <p>Validate JSON, YAML, OpenAPI specifications, and executable examples against the product where practical. A page can read well and still be wrong if an endpoint, parameter, or command has changed.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">05 / ACCESSIBILITY</span>
+          <h3>Rendered output checks</h3>
+          <p>Check generated HTML for accessibility issues, missing image descriptions, invalid markup, and navigation problems. Run these checks against built pages, not only source files.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">06 / FEEDBACK</span>
+          <h3>Actionable PR annotations</h3>
+          <p>Report errors as required checks and advisory findings as review comments. Give contributors file-and-line context, a rule reference, and a proposed fix. Keep human approval responsible for technical meaning, exceptions, and final publication.</p>
+        </article>
+      </div>
+      <div class="architecture-flow" role="img" aria-label="Pull request runs linting and style checks, AI-assisted review, then human approval before merge and publication">
+        <article class="architecture-node"><span>01</span><strong>Pull request</strong><p>Contributor submits a documentation change</p></article>
+        <div class="architecture-arrow" aria-hidden="true">→</div>
+        <article class="architecture-node"><span>02</span><strong>Automated feedback</strong><p>Lint, style, STE, technical checks, and AI suggestions</p></article>
+        <div class="architecture-arrow" aria-hidden="true">→</div>
+        <article class="architecture-node"><span>03</span><strong>Human approval</strong><p>Resolve findings, merge, build, and deploy</p></article>
+      </div>
+      <p class="small-note">I would make reproducible errors such as broken links and invalid schemas blocking checks. AI-generated recommendations would remain advisory until a reviewer verifies them. Sensitive or proprietary content should only be sent to approved AI services under appropriate data-handling controls.</p>
     </div>
   </section>
 
