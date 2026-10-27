@@ -14,7 +14,6 @@ const base = import.meta.env.BASE_URL;
     <p class="lede">Technical writer and documentation leader with 15+ years of experience, from highly technical systems and developer documentation to clear instructions for nontechnical audiences. I work across content, code, tooling, and team processes to make documentation accurate, useful, and maintainable.</p>
     <div class="actions">
       <a class="button primary" href={`${base}MikeKelley-resume.pdf`} download>Download resume (PDF)</a>
-      <button class="button secondary" id="print-resume" type="button">Print / Save as PDF</button>
       <a class="button secondary" href={`${base}writing/`}>Writing samples</a>
     </div>
   </section>
@@ -162,9 +161,9 @@ const base = import.meta.env.BASE_URL;
           <p class="eyebrow">PRESENTATIONS & PUBLICATIONS</p>
           <h3>Sharing what I know</h3>
           <ul class="plain-list">
-            <li>Two-time invited presenter at MadWorld</li>
-            <li>Four invited MadCap webinars on Flare output customization, CSS, and font iconography</li>
-            <li>Article in ISTC Communicator</li>
+            <li>Two-time invited presenter at MadWorld. <a href="https://docs.madcapsoftware.com/madworld/2016/MadWorld2016_Schedule.pdf" target="_blank" rel="noopener noreferrer">2016 conference program (PDF)</a></li>
+            <li>Four invited MadCap webinars on Flare output customization, CSS, and font iconography. Selected recordings and materials: <a href="https://www.madcapsoftware.com/webinars/creating-a-unique-help-experience-using-madcap-flare" target="_blank" rel="noopener noreferrer">Customizing Flare output</a>, <a href="https://www.madcapsoftware.com/webinars/leveraging-css-html5-to-enhance-madcap-flare-output-part-2" target="_blank" rel="noopener noreferrer">CSS and HTML5, Part 2</a>, and <a href="https://www.madcapsoftware.com/webinars/font-iconography-to-enhance-madcap-flare-outputs" target="_blank" rel="noopener noreferrer">Font iconography</a>.</li>
+            <li>“MadWorld conference, 2–5 April 2017,” <em>ISTC Communicator</em>, Summer 2017. <a href="https://istc.org.uk/publications-and-resources/communicator/article-index-by-topic/" target="_blank" rel="noopener noreferrer">Publication index</a></li>
             <li>Featured in a Utah NBC-affiliate article</li>
           </ul>
         </div>
@@ -192,15 +191,9 @@ const base = import.meta.env.BASE_URL;
       </div>
     </div>
   </section>
-<script>
-  document.querySelector<HTMLButtonElement>('#print-resume')?.addEventListener('click', () => {
-    window.print();
-  });
-</script>
-
 <style is:global>
   @media print {
-    .site-header, .site-footer, .skip-link, #print-resume,
+    .site-header, .site-footer, .skip-link,
     .page-hero .actions, .contact-strip, .resume-card {
       display: none !important;
     }
