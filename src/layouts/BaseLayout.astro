@@ -27,7 +27,7 @@ const currentPath = Astro.url.pathname;
         <a href={base} aria-current={currentPath === base ? 'page' : undefined}>Home</a>
         <a href={`${base}writing/`} aria-current={currentPath === `${base}writing/` || currentPath === `${base}writing` ? 'page' : undefined}>Writing Samples</a>
         <a href={`${base}docs-as-code/`}>Docs-as-Code</a>
-        <a href={`${base}demos/`}>Code Demos</a>
+        <a href={`${base}demos/`} aria-current={currentPath === `${base}demos/` || currentPath === `${base}demos` ? 'page' : undefined}>Code Demos</a>
         <a href={`${base}resume/`}>Resume</a>
       </nav>
     </header>
