@@ -1,95 +1,28 @@
 ---
-import '../styles/global.css';
-const projects = [
-  { tag: 'Docs-as-code', title: 'A documentation workflow built for change', text: 'A small, readable example of source-controlled documentation, repeatable builds, and automated publishing.', href: '#workflow' },
-  { tag: 'API demo', title: 'ZIP-code weather lookup', text: 'A working browser-side demo using geocoding and forecast APIs, with input validation and loading/error states.', href: '#weather' },
-  { tag: 'Front-end', title: 'HTML, CSS and jQuery samples', text: 'A place to show interface work, practical scripting, responsive layouts, and the reasoning behind implementation choices.', href: '#code-samples' },
-];
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
 ---
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Technical writing, documentation engineering, docs-as-code, and front-end samples." />
-    <title>Technical Documentation Portfolio</title>
-  </head>
-  <body>
-    <header class="site-header">
-      <a class="wordmark" href="#top">Documentation / Engineering</a>
-      <nav aria-label="Main navigation"><a href="#work">Work</a><a href="#workflow">Workflow</a><a href="#resume">Resume</a><a href="#contact">Contact</a></nav>
-    </header>
-    <main id="top">
-      <section class="hero wrap">
-        <p class="eyebrow">TECHNICAL WRITING · DOCS-AS-CODE · CONTENT SYSTEMS</p>
-        <h1>Making complicated things easier to understand, use, and maintain.</h1>
-        <p class="lede">I’m a technical writer and documentation lead with 15+ years of experience across software, APIs, cybersecurity, aviation, and complex manufacturing. I work across the whole documentation lifecycle: understanding the system, shaping the content, improving the workflow, and helping teams ship reliable information.</p>
-        <div class="actions"><a class="button primary" href="#work">Explore selected work</a><a class="button secondary" href="#resume">View resume</a></div>
-        <div class="proof-row"><div><strong>15+ years</strong><span>technical documentation</span></div><div><strong>Docs-as-code</strong><span>Git, Markdown, Sphinx, Jekyll</span></div><div><strong>Hands-on</strong><span>HTML, CSS, JavaScript</span></div></div>
-      </section>
+<BaseLayout title="Interactive Code Demos | Technical Documentation Portfolio" description="Interactive examples of API integration, form validation, semantic HTML, responsive CSS, and jQuery.">
+  <section class="page-hero wrap"><p class="eyebrow">03 / INTERACTIVE CODE DEMONSTRATIONS</p><h1>Code examples that show both behavior and implementation choices.</h1><p class="lede">These small demonstrations focus on useful front-end fundamentals: accessible forms, asynchronous requests, clear feedback, responsive layouts, and maintainable markup. The weather demo uses public APIs and does not require an API key.</p></section>
+  <section class="section wrap" id="weather"><div class="section-heading"><p class="eyebrow">DEMO 01 · API INTEGRATION</p><h2>OpenWeather API: ZIP-code weather lookup</h2><p>This is my original working demo. It uses jQuery to validate a five-digit US ZIP code, geocode the location, request current conditions and forecast data, and display weather alerts when available. The existing page also documents the implementation and its trade-offs.</p><div class="actions"><a class="button primary" href="https://mikekelley89.github.io/openWeatherApi/demos/openweather.html" target="_blank" rel="noopener noreferrer">Open the live weather demo ↗</a><a class="button secondary" href="https://github.com/mikekelley89/openWeatherApi" target="_blank" rel="noopener noreferrer">View source repository ↗</a></div></div>
+    <div class="weather-embed-shell"><iframe class="weather-demo-frame" src="https://mikekelley89.github.io/openWeatherApi/demos/openweather.html" title="Mike Kelley's OpenWeather API demonstration" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <p class="small-note">The embedded page is hosted separately in my <a href="https://github.com/mikekelley89/openWeatherApi" target="_blank" rel="noopener noreferrer">openWeatherApi repository</a>. If the live demo does not display inside this frame, use the button above to open it directly.</p>
+    <details class="implementation-notes"><summary>What this example demonstrates</summary><ul><li>Client-side validation for a five-digit US ZIP code.</li><li>Chained asynchronous API requests: geocoding first, then weather data using latitude and longitude.</li><li>Dynamic rendering of conditions, temperature, wind, forecast summary, and available weather alerts.</li><li>Documented implementation choices, limitations, and lessons learned alongside the working example.</li></ul></details>
+    <p class="small-note"><strong>Security note:</strong> Before sharing the source broadly, review the OpenWeather API key used by the original public demo. Browser-side keys are visible to visitors; use provider restrictions and usage limits, and rotate the key if it is no longer safe to expose.</p>
+  </section>
+  <section class="section band"><div class="wrap"><div class="section-heading"><p class="eyebrow">DEMO 02 · HTML / CSS</p><h2>Responsive content layout</h2><p>A standalone sample illustrating semantic structure, responsive behavior, and content-first layout.</p><a class="button secondary" href={`${base}samples/responsive-layout.html`}>Open responsive layout sample ↗</a></div>
+  <div class="sample-grid"><article class="sample"><span class="tag">Structure</span><h3>Semantic HTML</h3><p>Meaningful headings, landmarks, lists, and links make content easier to navigate and maintain.</p></article><article class="sample"><span class="tag">Presentation</span><h3>Responsive CSS</h3><p>Flexible grids and breakpoints adapt the layout to different viewport widths.</p></article><article class="sample"><span class="tag">Accessibility</span><h3>Usable by default</h3><p>Readable contrast, visible focus, and logical document structure support more readers.</p></article></div></div></section>
+  <section class="section wrap"><div class="section-heading"><p class="eyebrow">DEMO 03 · JAVASCRIPT / JQUERY</p><h2>Progressive enhancement</h2><p>This sample demonstrates interaction and DOM updates with jQuery. It is a small standalone example, separate from the Astro site.</p><a class="button secondary" href={`${base}samples/jquery-example.html`}>Open jQuery sample ↗</a></div><div class="code-panel"><pre><code>$('#search-form').on('submit', function (event) {
+  event.preventDefault();
+  const query = $('#search').val().trim();
 
-      <section class="section wrap" id="work">
-        <div class="section-heading"><p class="eyebrow">SELECTED WORK</p><h2>Show the work. Explain the decisions.</h2><p>Replace the starter examples with approved samples, screenshots, source repositories, or sanitized excerpts. For each project, explain the problem, your role, the approach, and the result.</p></div>
-        <div class="project-grid">{projects.map((p) => <a class="project-card" href={p.href}><span class="tag">{p.tag}</span><h3>{p.title}</h3><p>{p.text}</p><span class="text-link">Explore sample ↗</span></a>)}</div>
-      </section>
+  if (!query) {
+    $('#message').text('Enter a search term.');
+    return;
+  }
 
-      <section class="section band" id="workflow"><div class="wrap two-col"><div><p class="eyebrow">DOCS-AS-CODE</p><h2>Documentation is a product, not an afterthought.</h2><p>I treat documentation as versioned source: changes are reviewed, builds are repeatable, and publishing is part of the delivery pipeline. That makes content easier to maintain and gives teams a clearer audit trail.</p><p class="small-note">This portfolio itself is designed to follow that workflow.</p></div><div class="terminal" aria-label="Example documentation deployment pipeline"><div class="terminal-top"><i></i><i></i><i></i><span>release.yml</span></div><pre><code><span class="code-muted"># Change docs in source</span>
-edit content/*.md
+  $('#message').text(`Ready to search for: ${query}`);
+});</code></pre><p class="small-note">Illustrative code snippet. The linked standalone sample contains the runnable implementation.</p></div></section>
+  <section class="section band"><div class="wrap"><h2>Engineering decisions worth calling out</h2><div class="check-grid"><p><strong>Input validation</strong><br />Reject malformed input before making a network request.</p><p><strong>Loading state</strong><br />Tell the user what is happening and prevent duplicate submissions.</p><p><strong>Error handling</strong><br />Provide useful feedback when a service is unavailable or returns no result.</p><p><strong>Accessible updates</strong><br />Use labels and live regions so dynamic feedback is perceivable.</p></div></div></section>
 
-<span class="code-green">git add .</span>
-<span class="code-green">git commit -m "docs: update API guide"</span>
-<span class="code-green">git push origin main</span>
-
-<span class="code-muted"># CI pipeline</span>
-install dependencies
-build static site
-deploy artifact
-
-<span class="code-green">✓ Published from versioned source</span></code></pre></div></div></section>
-
-      <section class="section wrap" id="weather"><div class="section-heading"><p class="eyebrow">INTERACTIVE API SAMPLE</p><h2>Weather lookup by ZIP code</h2><p>A small example of API integration, form validation, asynchronous requests, and user-friendly error handling. It uses Open-Meteo geocoding and forecast endpoints, so no API key is required for this demo.</p></div>
-        <form id="weather-form" class="weather-form"><label for="zip">US ZIP code</label><div class="input-row"><input id="zip" name="zip" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" maxlength="5" placeholder="e.g. 84010" required /><button class="button primary" type="submit">Get weather</button></div><p class="form-help">Enter a five-digit ZIP code. Your ZIP code is used only to look up a forecast.</p></form>
-        <div id="weather-status" class="weather-status" role="status" aria-live="polite">Try a ZIP code to see the demo.</div><div id="weather-result" class="weather-result" hidden></div>
-      </section>
-
-      <section class="section band" id="code-samples"><div class="wrap"><div class="section-heading"><p class="eyebrow">FRONT-END SAMPLES</p><h2>Small examples, with the code and intent visible.</h2><p>Use these slots for original work. Avoid presenting starter code as past client work; label personal demos clearly and link to the source.</p></div><div class="sample-grid"><article class="sample"><span class="tag">HTML / CSS</span><h3>Responsive content layout</h3><p>Show semantic markup, accessible navigation, responsive behavior, and CSS architecture.</p><a href={`${import.meta.env.BASE_URL}samples/responsive-layout.html`}>Open sample ↗</a></article><article class="sample"><span class="tag">JavaScript / jQuery</span><h3>Progressive enhancement</h3><p>Show event handling, validation, DOM updates, and graceful error states.</p><a href={`${import.meta.env.BASE_URL}samples/jquery-example.html`}>Open sample ↗</a></article><article class="sample"><span class="tag">Writing</span><h3>Before / after documentation</h3><p>Add a sanitized excerpt that demonstrates structure, task completion, accuracy, and voice.</p><a href="#writing-sample">See writing sample ↓</a></article></div></div></section>
-
-      <section class="section wrap" id="writing-sample"><div class="section-heading"><p class="eyebrow">WRITING SAMPLE PLACEHOLDER</p><h2>Clear steps beat clever prose.</h2><p class="small-note">Replace this fictional example with a real, approved sample or link to a PDF. Never publish confidential employer or customer material.</p></div><article class="writing-preview"><p class="tag">EXAMPLE PROCEDURE</p><h3>Configure an API token</h3><p>Use an API token to authenticate requests from your application. Store the token in an environment variable rather than hard-coding it in source code.</p><ol><li>Open your account’s API settings.</li><li>Create a token with only the permissions your application requires.</li><li>Copy the token and store it in your local environment or secret manager.</li><li>Send the token using the authentication method documented by the API.</li><li>Make a test request, then confirm that the response contains the expected data.</li></ol><p><strong>Why this works:</strong> it states the purpose, uses direct verbs, keeps each action discrete, and includes a verification step.</p></article></section>
-
-      <section class="section wrap resume-section" id="resume"><div><p class="eyebrow">EXPERIENCE</p><h2>Technical depth. Editorial judgment. Team leadership.</h2><p>My work has included API documentation, cybersecurity, aviation regulatory content, documentation tooling, and leading documentation teams supporting complex manufacturing programs.</p><ul class="resume-list"><li><strong>Documentation leadership</strong><span>Prioritization, delivery planning, quality standards, coaching, and continuous improvement.</span></li><li><strong>Documentation engineering</strong><span>Git, Markdown, MadCap Flare, Sphinx, Jekyll, HTML, CSS, JavaScript, and docs build workflows.</span></li><li><strong>Cross-functional work</strong><span>Partnering with engineering, quality, product, operations, and subject-matter experts.</span></li></ul></div><aside class="resume-card"><p class="tag">RESUME</p><h3>Full experience and skills</h3><p>Add your current resume as a PDF in <code>public/resume.pdf</code>, then keep the link below.</p><a class="button primary full" href={`${import.meta.env.BASE_URL}MikeKelley-resume.pdf`}>Open resume PDF</a><a class="text-link" href="mailto:mikekelley89@gmail.com">Request a copy by email ↗</a></aside></section>
-
-      <section class="contact band" id="contact"><div class="wrap contact-inner"><div><p class="eyebrow">LET’S TALK</p><h2>Have a documentation problem worth solving?</h2><p>I’m interested in technical writing, documentation engineering, content design, and documentation leadership roles.</p></div><div class="contact-links"><a class="button primary" href="mailto:mikekelley89@gmail.com">Email me</a><a href="https://www.linkedin.com/in/mike-kelley/">LinkedIn profile ↗</a><a href="https://github.com/MikeKelley89">GitHub profile ↗</a></div></div></section>
-    </main>
-    <footer class="site-footer wrap"><span>© <span id="year"></span> · Technical Documentation Portfolio</span><span>Built from source. Versioned in Git. Deployed by CI.</span></footer>
-    <script is:inline>
-      const form = document.querySelector('#weather-form');
-      const status = document.querySelector('#weather-status');
-      const result = document.querySelector('#weather-result');
-      const weatherCodes = {0:'Clear sky',1:'Mainly clear',2:'Partly cloudy',3:'Overcast',45:'Fog',48:'Depositing rime fog',51:'Light drizzle',53:'Moderate drizzle',55:'Dense drizzle',61:'Slight rain',63:'Moderate rain',65:'Heavy rain',71:'Slight snow',73:'Moderate snow',75:'Heavy snow',80:'Rain showers',81:'Moderate rain showers',82:'Violent rain showers',95:'Thunderstorm'};
-      document.querySelector('#year').textContent = new Date().getFullYear();
-      form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const zip = document.querySelector('#zip').value.trim();
-        result.hidden = true;
-        if (!/^\d{5}$/.test(zip)) { status.textContent = 'Enter a valid five-digit US ZIP code.'; return; }
-        status.textContent = 'Looking up location and forecast…';
-        const button = form.querySelector('button'); button.disabled = true;
-        try {
-          const geoResponse = await fetch(`https://api.zippopotam.us/us/${encodeURIComponent(zip)}`);
-          if (geoResponse.status === 404) throw new Error('We couldn’t find that ZIP code. Check it and try again.');
-          if (!geoResponse.ok) throw new Error('The location service is temporarily unavailable. Try again shortly.');
-          const geoData = await geoResponse.json();
-          const place = geoData.places?.[0];
-          if (!place) throw new Error('We couldn’t find that ZIP code. Check it and try again.');
-          const latitude = Number(place.latitude); const longitude = Number(place.longitude);
-          const forecastResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=auto`);
-          if (!forecastResponse.ok) throw new Error('The forecast service is temporarily unavailable. Try again shortly.');
-          const data = await forecastResponse.json(); const current = data.current;
-          status.textContent = `Current conditions for ${place['place name']}, ${place['state abbreviation'] || 'United States'}`;
-          result.innerHTML = `<div class="weather-main"><div><span class="weather-temp">${Math.round(current.temperature_2m)}°F</span><p>${weatherCodes[current.weather_code] || 'Current conditions'}</p></div><div class="weather-meta"><span>Feels like <strong>${Math.round(current.apparent_temperature)}°F</strong></span><span>Humidity <strong>${current.relative_humidity_2m}%</strong></span><span>Wind <strong>${Math.round(current.wind_speed_10m)} mph</strong></span><span>Precipitation <strong>${current.precipitation} in</strong></span></div></div><p class="form-help">Observed at ${new Date(current.time).toLocaleString()} local time. Forecast data: Open-Meteo.</p>`;
-          result.hidden = false;
-        } catch (error) { status.textContent = error.message || 'Something went wrong. Please try again.'; }
-        finally { button.disabled = false; }
-      });
-    </script>
-  </body>
-</html>
+</BaseLayout>
