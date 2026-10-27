@@ -8,24 +8,26 @@ const base = import.meta.env.BASE_URL;
   title="Resume | Mike Kelley"
   description="Mike Kelley's experience in technical writing, documentation engineering, docs-as-code, and documentation team leadership."
 >
-  <section class="page-hero wrap">
+  <section class="page-hero wrap resume-hero">
     <p class="eyebrow">COMPLETE CAREER HISTORY · DOCUMENTATION · LEADERSHIP</p>
     <h1>Mike Kelley</h1>
+    <p class="resume-role">Technical documentation <span>·</span> Documentation engineering <span>·</span> Team leadership</p>
     <p class="lede">Technical writer and documentation leader with 15+ years of experience, from highly technical systems and developer documentation to clear instructions for nontechnical audiences. I work across content, code, tooling, and team processes to make documentation accurate, useful, and maintainable.</p>
+    <div class="resume-highlights" aria-label="Career highlights"><div><strong>15+ years</strong><span>Technical documentation</span></div><div><strong>8 people</strong><span>Current team leadership</span></div><div><strong>19 people</strong><span>Prior QA supervision</span></div></div>
     <div class="actions">
       <a class="button primary" href={`${base}MikeKelley-resume.pdf`} download>Download resume (PDF)</a>
       <a class="button secondary" href={`${base}writing/`}>Writing samples</a>
     </div>
   </section>
 
-  <section class="section wrap">
+  <section class="section wrap resume-content">
     <div class="resume-section">
       <div>
         <p class="eyebrow">CAREER HISTORY</p>
         <h2>Experience</h2>
         <p>My full professional history is below, including earlier technical writing, QA, and team supervision roles. For a shorter overview, use the downloadable resume.</p>
-        <div class="timeline">
-          <article class="timeline-item">
+        <div class="timeline resume-timeline">
+          <article class="timeline-item resume-job">
             <div class="timeline-date">Jun 2026 – Present</div>
             <div>
               <h3>Documentation Supervisor</h3>
@@ -38,7 +40,7 @@ const base = import.meta.env.BASE_URL;
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item resume-job">
             <div class="timeline-date">Dec 2023 – Dec 2025</div>
             <div>
               <h3>Senior Technical Writer II</h3>
@@ -51,7 +53,7 @@ const base = import.meta.env.BASE_URL;
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item resume-job">
             <div class="timeline-date">Oct 2022 – Apr 2023</div>
             <div>
               <h3>Senior Documentation Engineer</h3>
@@ -63,7 +65,7 @@ const base = import.meta.env.BASE_URL;
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item resume-job">
             <div class="timeline-date">Oct 2018 – Oct 2022</div>
             <div>
               <h3>Senior Technical Writer</h3>
@@ -76,7 +78,7 @@ const base = import.meta.env.BASE_URL;
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item resume-job">
             <div class="timeline-date">Nov 2017 – Oct 2018</div>
             <div>
               <h3>Senior Technical Writer II</h3>
@@ -88,7 +90,7 @@ const base = import.meta.env.BASE_URL;
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item resume-job">
             <div class="timeline-date">Apr 2014 – Nov 2017</div>
             <div>
               <h3>Principal Information Developer</h3>
@@ -100,7 +102,7 @@ const base = import.meta.env.BASE_URL;
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item resume-job">
             <div class="timeline-date">Oct 2008 – Apr 2014</div>
             <div>
               <h3>Senior Technical Writer</h3>
@@ -113,7 +115,7 @@ const base = import.meta.env.BASE_URL;
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item resume-job">
             <div class="timeline-date">Jun 2007 – Aug 2008</div>
             <div>
               <h3>Technical Writer II</h3>
@@ -125,7 +127,7 @@ const base = import.meta.env.BASE_URL;
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item resume-job">
             <div class="timeline-date">Jun 2002 – Jun 2007</div>
             <div>
               <h3>Technician II / Supervisor I</h3>
@@ -139,7 +141,7 @@ const base = import.meta.env.BASE_URL;
         </div>
       </div>
 
-      <aside>
+      <aside class="resume-sidebar">
         <div class="resume-card">
           <p class="eyebrow">CORE SKILLS</p>
           <h3>Tools and practice</h3>
@@ -157,7 +159,7 @@ const base = import.meta.env.BASE_URL;
           </ul>
         </div>
 
-        <div class="resume-card" style="margin-top:18px">
+        <div class="resume-card">
           <p class="eyebrow">PUBLISHED ARTICLES & PRESENTATIONS</p>
           <h3>Sharing what I know</h3>
           <ul class="plain-list">
@@ -168,7 +170,7 @@ const base = import.meta.env.BASE_URL;
           </ul>
         </div>
 
-        <div class="resume-card" style="margin-top:18px">
+        <div class="resume-card">
           <p class="eyebrow">EDUCATION</p>
           <h3>Boise State University</h3>
           <p>2026 · Cyber Operations and Resilience</p>
@@ -191,6 +193,46 @@ const base = import.meta.env.BASE_URL;
       </div>
     </div>
   </section>
+
+<style>
+  .resume-hero { position: relative; margin-top: 28px; padding: clamp(30px, 5vw, 60px); border-radius: 14px; background: linear-gradient(120deg, #142b4a 0%, #1c426e 75%, #255484 100%); color: white; overflow: hidden; }
+  .resume-hero::after { content: ""; position: absolute; width: 310px; height: 310px; border: 45px solid rgba(255,255,255,.045); border-radius: 50%; right: -110px; top: -130px; pointer-events: none; }
+  .resume-hero :global(.eyebrow) { color: #ffbd73; }
+  .resume-hero h1 { color: white; font-size: clamp(2.35rem, 4.3vw, 3.7rem); margin-bottom: 8px; }
+  .resume-role { margin: 0 0 18px; font-weight: 650; color: #e7f0fc; letter-spacing: .01em; }
+  .resume-role span { color: #ffbd73; margin-inline: 5px; }
+  .resume-hero :global(.lede) { color: #e2eaf6; max-width: 790px; font-size: 1.04rem; line-height: 1.75; }
+  .resume-hero :global(.button.secondary) { background: transparent; color: white; border-color: #9bb5d1; }
+  .resume-hero :global(.button.secondary:hover) { background: rgba(255,255,255,.12); border-color: white; }
+  .resume-highlights { display: flex; flex-wrap: wrap; gap: 16px 38px; padding-top: 22px; margin-top: 28px; border-top: 1px solid rgba(255,255,255,.23); }
+  .resume-highlights div { display: grid; gap: 1px; }
+  .resume-highlights strong { color: white; font-size: 1.18rem; letter-spacing: -.02em; }
+  .resume-highlights span { font-size: .8rem; color: #c6d8ed; }
+  .resume-content { padding-top: 60px; }
+  .resume-content :global(.resume-section) { grid-template-columns: minmax(0,1fr) 305px; gap: clamp(26px,4vw,55px); }
+  .resume-content :global(.resume-section h2) { margin-bottom: 12px; }
+  .resume-timeline { position: relative; padding-left: 25px; margin-top: 30px; border-left: 2px solid #d5e2f2; }
+  .resume-job { position: relative; grid-template-columns: 1fr !important; gap: 8px !important; margin-bottom: 16px; padding: 23px 26px !important; border: 1px solid #d9e3ef !important; border-radius: 11px; background: white; box-shadow: 0 5px 20px rgba(20,43,74,.045); transition: border-color .2s ease, box-shadow .2s ease; }
+  .resume-job::before { content: ""; position: absolute; top: 28px; left: -33px; width: 12px; height: 12px; border-radius: 50%; background: #2463a6; border: 3px solid #f4f7fb; box-shadow: 0 0 0 2px #c9d8ea; }
+  .resume-job:hover { border-color: #a7bfdc !important; box-shadow: 0 9px 26px rgba(20,43,74,.09); }
+  .resume-job :global(.timeline-date) { color: #1c5794; font-size: .77rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+  .resume-job :global(h3) { font-size: 1.16rem; line-height: 1.3; color: #142b4a; margin: 0 0 2px; }
+  .resume-job :global(.timeline-company) { color: #52657b; font-weight: 700; margin: 0 0 12px; font-size: .93rem; }
+  .resume-job :global(.plain-list) { margin: 0; padding-left: 18px; }
+  .resume-job :global(.plain-list li) { color: #40536a; line-height: 1.6; font-size: .91rem; padding: 3px 0; }
+  .resume-job :global(.plain-list li::marker) { color: #d47b24; }
+  .resume-sidebar { display: flex; flex-direction: column; gap: 18px; }
+  .resume-sidebar :global(.resume-card) { border: 1px solid #d9e3ef; border-radius: 11px; padding: 24px; background: white; box-shadow: 0 5px 20px rgba(20,43,74,.045); }
+  .resume-sidebar :global(.resume-card:first-child) { border-top: 4px solid #2463a6; }
+  .resume-sidebar :global(.resume-card:nth-child(2)) { border-top: 4px solid #e18b36; }
+  .resume-sidebar :global(.resume-card:nth-child(3)) { border-top: 4px solid #9bb5d1; }
+  .resume-sidebar :global(.resume-card h3) { margin: 0 0 12px; font-size: 1.12rem; }
+  .resume-sidebar :global(.plain-list) { margin: 0; padding-left: 18px; }
+  .resume-sidebar :global(li) { font-size: .88rem; line-height: 1.55; padding: 6px 0; color: #40536a; }
+  @media (max-width: 850px) { .resume-content :global(.resume-section) { grid-template-columns: 1fr; } .resume-sidebar { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-items: start; } .resume-sidebar :global(.resume-card:first-child) { grid-row: span 2; } }
+  @media (max-width: 580px) { .resume-hero { margin-top: 16px; padding: 30px 22px; } .resume-role { font-size: .9rem; } .resume-highlights { gap: 15px 22px; } .resume-timeline { padding-left: 17px; } .resume-job { padding: 20px 18px !important; } .resume-job::before { left: -25px; } .resume-sidebar { display: flex; } }
+</style>
+
 <style is:global>
   @media print {
     .site-header, .site-footer, .skip-link,
