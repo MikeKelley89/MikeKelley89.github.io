@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Technical writing, documentation engineering, and docs-as-code portfolio.' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const currentPath = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f7f8f6" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="wordmark" href={base}>Mike Kelley <span aria-hidden="true">/</span> Technical Documentation</a>
+      <nav aria-label="Main navigation">
+        <a href={base} aria-current={currentPath === base ? 'page' : undefined}>Home</a>
+        <a href={`${base}writing/`}>Writing Samples</a>
+        <a href={`${base}docs-as-code/`}>Docs-as-Code</a>
+        <a href={`${base}demos/`}>Code Demos</a>
+        <a href={`${base}resume/`}>Resume</a>
+      </nav>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer wrap">
+      <span>Mike Kelley · Technical Writing & Documentation Engineering</span>
+      <span>Built with Astro</span>
+    </footer>
+  </body>
+</html>
