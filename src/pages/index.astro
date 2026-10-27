@@ -12,17 +12,17 @@ const base = import.meta.env.BASE_URL;
   </section>
   <section class="section band"><div class="wrap"><div class="section-heading"><p class="eyebrow">DEMO 02 · HTML / CSS</p><h2>Responsive content layout</h2><p>A standalone sample illustrating semantic structure, responsive behavior, and content-first layout.</p><a class="button secondary" href={`${base}samples/responsive-layout.html`}>Open responsive layout sample ↗</a></div>
   <div class="sample-grid"><article class="sample"><span class="tag">Structure</span><h3>Semantic HTML</h3><p>Meaningful headings, landmarks, lists, and links make content easier to navigate and maintain.</p></article><article class="sample"><span class="tag">Presentation</span><h3>Responsive CSS</h3><p>Flexible grids and breakpoints adapt the layout to different viewport widths.</p></article><article class="sample"><span class="tag">Accessibility</span><h3>Usable by default</h3><p>Readable contrast, visible focus, and logical document structure support more readers.</p></article></div></div></section>
-  <section class="section wrap"><div class="section-heading"><p class="eyebrow">DEMO 03 · JAVASCRIPT / JQUERY</p><h2>Progressive enhancement</h2><p>This sample demonstrates interaction and DOM updates with jQuery. It is a small standalone example, separate from the Astro site.</p><a class="button secondary" href={`${base}samples/jquery-example.html`}>Open jQuery sample ↗</a></div><div class="code-panel"><pre><code>$('#search-form').on('submit', function (event) {
+  <section class="section wrap"><div class="section-heading"><p class="eyebrow">DEMO 03 · JAVASCRIPT / JQUERY</p><h2>Progressive enhancement</h2><p>This sample demonstrates interaction and DOM updates with jQuery. It is a small standalone example, separate from the Astro site.</p><a class="button secondary" href={`${base}samples/jquery-example.html`}>Open jQuery sample ↗</a></div><div class="code-panel"><pre><code>$('#search-form').on('submit', function (event) &#123;
   event.preventDefault();
   const query = $('#search').val().trim();
 
-  if (!query) {
+  if (!query) &#123;
     $('#message').text('Enter a search term.');
     return;
-  }
+  &#125;
 
   $('#message').text('Ready to search for: ' + query);
-});</code></pre><p class="small-note">Illustrative code snippet. The linked standalone sample contains the runnable implementation.</p></div></section>
+&#125;);</code></pre><p class="small-note">Illustrative code snippet. The linked standalone sample contains the runnable implementation.</p></div></section>
   <section class="section band"><div class="wrap"><h2>Engineering decisions worth calling out</h2><div class="check-grid"><p><strong>Input validation</strong><br />Reject malformed input before making a network request.</p><p><strong>Loading state</strong><br />Tell the user what is happening and prevent duplicate submissions.</p><p><strong>Error handling</strong><br />Provide useful feedback when a service is unavailable or returns no result.</p><p><strong>Accessible updates</strong><br />Use labels and live regions so dynamic feedback is perceivable.</p></div></div></section>
 
 </BaseLayout>
