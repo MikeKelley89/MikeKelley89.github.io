@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="Resume | Mike Kelley"
+  description="Mike Kelley's experience in technical writing, documentation engineering, docs-as-code, and documentation team leadership."
+>
+  <section class="page-hero wrap">
+    <p class="eyebrow">EXPERIENCE · DOCUMENTATION ENGINEERING · LEADERSHIP</p>
+    <h1>Mike Kelley</h1>
+    <p class="lede">Technical writer and documentation leader with more than 18 years of experience, from highly technical systems and developer documentation to clear instructions for nontechnical audiences. I work across content, code, tooling, and team processes to make documentation accurate, useful, and maintainable.</p>
+    <div class="actions">
+      <a class="button primary" href={`${base}resume.pdf`} download>Download resume (PDF)</a>
+      <a class="button secondary" href={`${base}writing/`}>Writing samples</a>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="resume-section">
+      <div>
+        <p class="eyebrow">CAREER HISTORY</p>
+        <h2>Experience</h2>
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="timeline-date">Jun 2026 – Present</div>
+            <div>
+              <h3>Documentation Supervisor</h3>
+              <p class="timeline-company">Petersen, Inc.</p>
+              <ul class="plain-list">
+                <li>Lead a team of eight documentation specialists and final inspectors supporting complex defense, nuclear, and commercial manufacturing programs.</li>
+                <li>Manage documentation priorities, delivery schedules, process improvements, and cross-functional resolution of quality and compliance issues across concurrent programs.</li>
+                <li>Coach team members through performance goals and individualized Personal Development Plans, supporting technical growth, accountability, and continuous improvement.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">Dec 2023 – Dec 2025</div>
+            <div>
+              <h3>Senior Technical Writer II</h3>
+              <p class="timeline-company">Magnit Global, on contract for Google</p>
+              <ul class="plain-list">
+                <li>Converted MadCap Flare XML source from PDF-only publishing to both HTML and PDF output.</li>
+                <li>Worked with aviation regulatory experts covering FAA, CAA, and CASA requirements to draft new regulatory content.</li>
+                <li>Developed CSS styles for documentation output.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">Oct 2022 – Apr 2023</div>
+            <div>
+              <h3>Senior Documentation Engineer</h3>
+              <p class="timeline-company">Watershed Informatics</p>
+              <ul class="plain-list">
+                <li>Wrote documentation suites for API-based DNA sequence alignment software.</li>
+                <li>Added and revised Python error messages, added missing type hints, and maintained Python docstrings used to generate the documentation site.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">Oct 2018 – Oct 2022</div>
+            <div>
+              <h3>Senior Technical Writer</h3>
+              <p class="timeline-company">Shape Security (part of F5)</p>
+              <ul class="plain-list">
+                <li>Implemented a Git workflow for source and built content and developed publishing processes.</li>
+                <li>Customized portal CSS to distinguish internal-only content using MadCap Flare conditions.</li>
+                <li>Led documentation tools and processes and served as lead developer of the help interface.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">Nov 2017 – Oct 2018</div>
+            <div>
+              <h3>Senior Technical Writer II</h3>
+              <p class="timeline-company">SaltStack</p>
+              <ul class="plain-list">
+                <li>Moved the existing Sphinx/LaTeX documentation platform to a docs-as-code workflow using Markdown, Git, and Jekyll.</li>
+                <li>Led the documentation team and hired writers to expand the team.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">Apr 2014 – Nov 2017</div>
+            <div>
+              <h3>Principal Information Developer</h3>
+              <p class="timeline-company">inContact</p>
+              <ul class="plain-list">
+                <li>Built custom MadCap Flare skins using jQuery, HTML5, and CSS3 and developed documentation styles and standards.</li>
+                <li>Created hover maps, an improved form of image map, and led tools, processes, and development of the online help interface at help.incontact.com.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">Oct 2008 – Apr 2014</div>
+            <div>
+              <h3>Senior Technical Writer</h3>
+              <p class="timeline-company">Adaptive Computing</p>
+              <ul class="plain-list">
+                <li>Developed MadCap Flare projects to single-source help content for online and print.</li>
+                <li>Implemented jQuery UI plugins to improve usability and created a landing page that reduced the time customers needed to find relevant content.</li>
+                <li>Led documentation tools and processes and helped develop the help interface.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">Jun 2007 – Aug 2008</div>
+            <div>
+              <h3>Technical Writer II</h3>
+              <p class="timeline-company">Adecco Technical</p>
+              <ul class="plain-list">
+                <li>Gathered information from subject-matter experts to create training content.</li>
+                <li>Edited content for localization and wrote certification exams for field agents repairing HP products.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">Jun 2002 – Jun 2007</div>
+            <div>
+              <h3>Technician II / Supervisor I</h3>
+              <p class="timeline-company">Adecco Technical, supporting HP</p>
+              <ul class="plain-list">
+                <li>Hired, trained, and supported up to 19 QA technicians.</li>
+                <li>Documented discovered defects in HP's technical knowledge base and wrote procedures for difficult tests other technicians could not otherwise run.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <aside>
+        <div class="resume-card">
+          <p class="eyebrow">CORE SKILLS</p>
+          <h3>Tools and practice</h3>
+          <ul class="plain-list">
+            <li>MadCap Flare; Certified Advanced Developer</li>
+            <li>XML, HTML5, CSS3</li>
+            <li>Git and docs-as-code</li>
+            <li>jQuery and JavaScript</li>
+            <li>Python, docstrings, and type hints</li>
+            <li>API and developer documentation</li>
+            <li>Prismic</li>
+            <li>Agile methodology</li>
+            <li>Jira and Atlassian Confluence</li>
+            <li>Team leadership, training, and coaching</li>
+          </ul>
+        </div>
+
+        <div class="resume-card" style="margin-top:18px">
+          <p class="eyebrow">PRESENTATIONS & PUBLICATIONS</p>
+          <h3>Sharing what I know</h3>
+          <ul class="plain-list">
+            <li>Two-time invited presenter at MadWorld</li>
+            <li>Four invited MadCap webinars on Flare output customization, CSS, and font iconography</li>
+            <li>Article in ISTC Communicator</li>
+            <li>Featured in a Utah NBC-affiliate article</li>
+          </ul>
+        </div>
+
+        <div class="resume-card" style="margin-top:18px">
+          <p class="eyebrow">EDUCATION</p>
+          <h3>Boise State University</h3>
+          <p>2026 · Cyber Operations and Resilience</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="wrap contact-strip">
+      <div>
+        <p class="eyebrow">MORE FROM MY PORTFOLIO</p>
+        <h2>See the work behind the experience.</h2>
+        <p>Browse writing samples, documentation workflow examples, and working code demos.</p>
+      </div>
+      <div class="actions">
+        <a class="button primary" href={`${base}writing/`}>Writing samples</a>
+        <a class="button secondary" href={`${base}docs-as-code/`}>Docs-as-code</a>
+        <a class="button secondary" href={`${base}demos/`}>Code demos</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
