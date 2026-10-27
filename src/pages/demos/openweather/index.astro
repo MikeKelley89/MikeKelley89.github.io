@@ -1,0 +1,340 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout title="OpenWeather API walkthrough | Mike Kelley" description="A complete walkthrough of a ZIP-code weather application, jQuery, Cloudflare Worker security, API response handling, and engineering trade-offs.">
+  <section class="page-hero wrap">
+    <p class="eyebrow">TECHNICAL WALKTHROUGH / API INTEGRATION</p>
+    <h1>OpenWeather API integration</h1>
+    <p class="lede">From ZIP-code input to weather data, with the implementation details and trade-offs behind the project. This is my original walkthrough, presented inside the portfolio instead of loading a separate site.</p>
+    <div class="actions">
+      <a class="button primary" href={`${base}demos/#try-it`}>Try the weather application</a>
+      <a class="button secondary" href="https://github.com/MikeKelley89/openWeatherApi" target="_blank" rel="noopener noreferrer">Original source repository ↗</a>
+    </div>
+  </section>
+  <section class="section wrap walkthrough">
+    <div class="section-heading">
+      <p class="eyebrow">IMPLEMENTATION AND LESSONS</p>
+      <h2>How the application works</h2>
+      <p>The interactive application remains on the <a href={`${base}demos/#try-it`}>Code Demos page</a>. The code and explanations below follow the original project, including the move from a browser-exposed API key to a Cloudflare Worker.</p>
+    </div>
+<div id="howItWorks">
+      <h2>Architecture overview</h2>
+      <p>
+        The browser does not call OpenWeather directly. It sends the ZIP code to a Cloudflare Worker, which makes two requests to <a href="https://openweathermap.org/">OpenWeather</a>:
+      </p>
+      <ul>
+        <li>
+          <a href="https://openweathermap.org/api/geocoding-api"
+            >Geocoding API</a
+          >
+          - Resolves a supported location or ZIP code to latitude and longitude coordinates.
+        </li>
+        <li>
+          <a href="https://openweathermap.org/api/one-call-3"
+            >One Call API 3.0</a
+          >
+          - Returns weather data for a location specified by latitude and longitude. Accepting a ZIP code in the interface avoids requiring users to supply geographic coordinates.
+        </li>
+      </ul>
+      <p>
+        The browser sends a five-digit US ZIP code to the Worker. The Worker
+        asks the Geocoding API for latitude and longitude, passes those
+        coordinates to One Call API 3.0, and returns a small JSON response for
+        the page to render. This keeps the provider credential on the server
+        while keeping the browser code simple.
+      </p>
+      <div class="notificationNote">
+        <i class="fa-solid fa-circle-info"></i>
+        <p>
+          The interface accepts five-digit US ZIP codes. ZIP+4 values are outside the scope of this example.
+        </p>
+      </div>
+      <h2>Client request flow</h2>
+      <p>The client uses jQuery to handle form submission, send an asynchronous request to the Worker, and update the interface. The main steps are outlined below. Code samples are simplified excerpts intended to illustrate the request flow.</p>
+      <ol>
+        <li>
+          <p>
+            Validate the ZIP code as the user edits the field. The client enables submission only when the value contains exactly five digits. The Worker repeats this validation because client-side checks can be bypassed.
+          </p>
+          <pre class="walkthrough-code"><code>
+function validZip(value) &#123;
+  return /^\d&#123;5&#125;$/.test(value);
+&#125;
+
+$zip.on("input", function () &#123;
+  const zip = this.value.trim();
+  const valid = validZip(zip);
+
+  $button.prop("disabled", !valid);
+  $("#zipStatus").toggle(!valid);
+
+  if (!valid) clearWeather();
+&#125;);
+          </code></pre>
+        </li>
+        <li>
+          <p>
+            Intercept form submission, validate again, clear any previous results, and disable the button while the request is in progress.
+          </p>
+          <pre class="walkthrough-code"><code>
+$form.on("submit", function (event) &#123;
+  event.preventDefault();
+  const zip = $zip.val().trim();
+
+  if (!validZip(zip)) &#123;
+    $("#zipStatus").show();
+    return;
+  &#125;
+
+  clearWeather();
+  $button.prop("disabled", true);
+
+  // The asynchronous request follows.
+&#125;);
+          </code></pre>
+        </li>
+        <li>
+          <p>
+            Send one GET request to the Worker. The ZIP code is a query parameter; the browser does not call OpenWeather directly and does not receive the API key.
+          </p>
+          <pre class="walkthrough-code"><code>
+$.ajax(&#123;
+  url: weatherEndpoint,
+  method: "GET",
+  data: &#123; zip: zip &#125;,
+  dataType: "json",
+  timeout: 12000
+&#125;).done(function (payload) &#123;
+  // Render the returned location and weather data.
+&#125;).fail(function (xhr, textStatus) &#123;
+  // Display a safe error message.
+&#125;).always(function () &#123;
+  $button.prop("disabled", !validZip($zip.val().trim()));
+&#125;);
+          </code></pre>
+        </li>
+        <li>
+          <p>
+            The Worker validates the request and calls the Geocoding API, then One Call API 3.0. It returns a reduced response with a <code>location</code> object and a <code>weather</code> object. This excerpt shows the successful response shape.
+          </p>
+          <pre class="walkthrough-code"><code>
+// Cloudflare Worker: response payload
+return jsonResponse(&#123;
+  location: &#123;
+    name: typeof location.name === "string"
+      ? location.name
+      : "Selected location",
+    country: typeof location.country === "string"
+      ? location.country
+      : "US"
+  &#125;,
+  weather: &#123;
+    current: weather.current || &#123;&#125;,
+    daily: Array.isArray(weather.daily) ? weather.daily : [],
+    alerts: Array.isArray(weather.alerts) ? weather.alerts : []
+  &#125;
+&#125;, 200, ALLOWED_ORIGIN);
+          </code></pre>
+        </li>
+        <li>
+          <p>
+            Read the response using the same property paths returned by the Worker. The client checks optional fields before displaying them and inserts values with <code>.text()</code>, rather than interpreting API data as HTML.
+          </p>
+          <pre class="walkthrough-code"><code>
+const location = payload.location || &#123;&#125;;
+const weather = payload.weather || &#123;&#125;;
+const current = weather.current || &#123;&#125;;
+const daily = (weather.daily &amp;&amp; weather.daily[0]) || &#123;&#125;;
+const currentCondition = (current.weather &amp;&amp; current.weather[0]) || &#123;&#125;;
+
+$("#conditions").text(
+  "Conditions for " + (location.name || "Selected location") +
+  ", " + (location.country || "US") + "..."
+);
+$("#main_temp").text(
+  Number.isFinite(current.temp) ? Math.round(current.temp) : "Unavailable"
+);
+$("#wind_speed").text(
+  Number.isFinite(current.wind_speed) ? current.wind_speed : "Unavailable"
+);
+$("#wind_direction").text(
+  Number.isFinite(current.wind_deg) ? current.wind_deg : "Unavailable"
+);
+$("#weather_conditions").text(
+  (daily.summary ? daily.summary + " " : "") +
+  (currentCondition.description
+    ? "Currently: " + currentCondition.description + "."
+    : "Current conditions are unavailable.")
+);
+          </code></pre>
+        </li>
+        <li>
+          <p>
+            If the response includes weather alerts, the client displays the first alert. The API returns alert timestamps in Unix seconds, so the client multiplies them by 1,000 before creating JavaScript <code>Date</code> objects. Missing alert fields receive fallback text.
+          </p>
+          <pre class="walkthrough-code"><code>
+const alerts = Array.isArray(weather.alerts) ? weather.alerts : [];
+if (alerts.length) &#123;
+  const alert = alerts[0];
+
+  $("#sender_name").text(alert.sender_name || "Weather service");
+  $("#event").text(alert.event || "Weather alert");
+  $("#start").text(
+    alert.start ? new Date(alert.start * 1000).toLocaleString() : "Not provided"
+  );
+  $("#end").text(
+    alert.end ? new Date(alert.end * 1000).toLocaleString() : "Not provided"
+  );
+  $("#description").text(alert.description || "No description provided.");
+  $("#tags").text(
+    Array.isArray(alert.tags) ? alert.tags.join(", ") : "Not provided"
+  );
+  $alert.show();
+&#125;
+          </code></pre>
+        </li>
+        <li>
+          <p>
+            On failure, the client reads the Worker's structured <code>error.message</code> when available. Otherwise, it uses a generic message, with a separate timeout explanation. The Worker maps upstream errors to safe messages rather than forwarding provider response bodies.
+          </p>
+          <pre class="walkthrough-code"><code>
+function showError(xhr, fallback) &#123;
+  const payload = xhr.responseJSON || &#123;&#125;;
+  const message = payload.error &amp;&amp; payload.error.message
+    ? payload.error.message
+    : fallback;
+
+  $("#errorCode").text(xhr.status ? xhr.status + ": " : "");
+  $("#errorMsg").text(message);
+  $apiError.show();
+&#125;
+
+.fail(function (xhr, textStatus) &#123;
+  showError(
+    xhr,
+    textStatus === "timeout"
+      ? "The request timed out. Please try again."
+      : "The weather service could not complete the lookup."
+  );
+&#125;);
+          </code></pre>
+        </li>
+      </ol>
+    </div>
+    <div id="lessons">
+      <h2>Limitations and potential improvements</h2>
+      <p>This is a focused portfolio application, not a production weather service. Its purpose is to demonstrate API integration and to document the reasoning behind the implementation. Reviewing the limitations also identifies the work required to make the application more robust.</p>
+      <h3>Application limitations</h3>
+      <p>The current implementation has several known areas for improvement:</p>
+      <ul>
+        <li>
+          <p>
+            Client-side validation improves feedback but is not a security boundary. The Worker independently validates the incoming ZIP code, so malformed requests are not accepted simply because they bypass the browser interface. Automated tests would help verify form behavior for keyboard submission and invalid input.
+          </p>
+        </li>
+        <li>
+          The ZIP validator checks format, not whether the ZIP code maps to a valid location. The Geocoding API provides the next validation step by determining whether the location can be resolved.
+        </li>
+        <li>
+          <p>
+            The API can return multiple alerts for a location, each with a different event, time window, and description.
+          </p>
+          <p>
+            The interface currently displays only the first item in the returned <code>alerts</code> array. A more complete implementation would render each alert separately and ensure that users can distinguish overlapping or concurrent events.
+          </p>
+        </li>
+        <li>
+          <p>
+            The original version placed the OpenWeather key in browser-side
+            JavaScript, which made it visible to every visitor. I replaced that
+            design with a Cloudflare Worker proxy and a server-side
+            <code>OPENWEATHER_API_KEY</code> secret. The client sends only a ZIP
+            code; the Worker accepts only the expected endpoint and method,
+            validates input, applies an approximate rate limit, and returns
+            sanitized errors instead of raw provider responses.
+          </p>
+          <p>
+            This reduces credential exposure, but it does not make the public
+            endpoint private. CORS is a browser control, not authentication, and
+            the rate limit is approximate. Provider-side usage limits and
+            monitoring should remain enabled. See the
+            <a href="https://github.com/MikeKelley89/openWeatherApi/tree/main/worker">Worker setup guide</a>
+            for deployment and testing instructions.
+          </p>
+        </li>
+      </ul>
+
+    </div>
+    <div id="acknowledgements">
+      <h2>Tools and references</h2>
+      <p>I wrote the original HTML, CSS, and JavaScript myself. I used AI assistance for the Cloudflare Worker and then to make targeted updates to the existing code and documentation. These are the main APIs, references, libraries, and tools used in the project:</p>
+      <ol>
+        <li><a href="https://openweathermap.org/">OpenWeatherMap.org API</a></li>
+        <li>HTML, CSS, and JavaScript, hand-written by me, with AI assistance for the Cloudflare Worker step and related integration updates</li>
+        <li>
+          Tom Johnson's
+          <a href="https://idratherbewriting.com/">I'd Rather Be Writing</a>
+          blog
+        </li>
+        <li><a href="https://stackoverflow.com/">Stack Overflow</a></li>
+        <li><a href="https://jquery.com/">jQuery</a></li>
+        <li><a href="https://prismjs.com/">Prism.js</a> for syntax highlighting</li>
+        <li>Git, GitHub, and GitHub Pages</li>
+        <li><a href="https://www.postman.com/">Postman</a></li>
+        <li><a href="https://chatgpt.com/">ChatGPT</a> for AI-assisted problem analysis, Worker implementation, code updates, and documentation review</li>
+      </ol>
+    </div>
+
+    <section id="ai-workflow" class="ai-workflow" aria-labelledby="ai-workflow-title">
+      <p class="eyebrow">AI-assisted development</p>
+      <h2 id="ai-workflow-title">Using AI as part of the engineering workflow</h2>
+      <p>
+        I wrote the original HTML, CSS, and JavaScript for this demo. When I identified that the OpenWeather API key was exposed in browser-side code, I used ChatGPT to help analyze the security problem and design a Cloudflare Worker proxy so the key could be stored as a server-side secret instead.
+      </p>
+
+      <h3>Prompting AI toward a concrete engineering solution</h3>
+      <p>
+        I used the existing repository, its code, and the intended request flow as context, then directed the AI-assisted work toward a specific goal: keep the key out of the browser while preserving the demo's behavior. The resulting Worker validates ZIP-code input, applies CORS restrictions and an approximate rate limit when configured, handles upstream timeouts and failures, and returns a reduced response with safe error messages.
+      </p>
+
+      <h3>Applying changes to the original project</h3>
+      <p>
+        After working through the Worker implementation, I used AI tooling to modify the existing project directly: updating the client to call the Worker, bringing the walkthrough examples into line with the implementation, revising setup documentation, and committing the changes to GitHub. This was an applied workflow across problem analysis, prompting, code changes, documentation, and version control, not a standalone AI-generated sample.
+      </p>
+
+      <h3>Human direction and review</h3>
+      <p>
+        My contribution was to identify the problem, supply relevant project context, specify the intended behavior, guide the changes, and check consistency between the code and its explanation. AI helped accelerate implementation, but generated changes still need human review and testing. I treat it as a development tool, not as a substitute for engineering judgment.
+      </p>
+      <p>
+        This implementation reduces exposure of the API credential; it does not make a public endpoint private. CORS is not authentication, and the rate limiter is approximate. Provider usage limits, monitoring, and further testing remain important. Those limitations are documented alongside the implementation rather than hidden behind the use of AI.
+      </p>
+      <p class="ai-workflow-note">
+        <strong>Why include this:</strong> Technical writing and documentation engineering increasingly involve working across code, tools, and delivery workflows. This project demonstrates how I use AI to investigate a problem, implement and document a solution, and maintain consistency between working code and the explanation presented to users.
+      </p>
+    </section>
+
+
+  </section>
+  <section class="section band">
+    <div class="wrap contact-strip">
+      <div><p class="eyebrow">EXPLORE THE IMPLEMENTATION</p><h2>Try it or inspect the source</h2><p>The live demo uses the same Cloudflare Worker as the original project, with no changes to the Worker deployment.</p></div>
+      <div class="actions"><a class="button primary" href={`${base}demos/#try-it`}>Try the live demo</a><a class="button secondary" href={`${base}writing/`}>Writing samples</a></div>
+    </div>
+  </section>
+  <style>
+    .walkthrough { max-width: 950px; }
+    .walkthrough :global(h2) { font-size: clamp(1.5rem, 2.8vw, 2.15rem); line-height: 1.2; margin: 2.4rem 0 1rem; }
+    .walkthrough :global(h3) { font-size: 1.18rem; margin: 1.8rem 0 .6rem; }
+    .walkthrough :global(p), .walkthrough :global(li) { line-height: 1.75; }
+    .walkthrough :global(li) { margin-bottom: .8rem; }
+    .walkthrough :global(pre.walkthrough-code) { overflow-x: auto; background: #142b4a; color: #e8f0fa; padding: 20px; border-radius: 8px; line-height: 1.65; font-size: .85rem; white-space: pre; }
+    .walkthrough :global(pre.walkthrough-code code) { color: inherit; overflow-wrap: normal; }
+    .walkthrough :global(.notificationNote), .walkthrough :global(.ai-workflow-note) { border-left: 3px solid #d78b32; padding: 12px 18px; background: #f1f5f8; border-radius: 4px; }
+    .walkthrough :global(.architecture-flow) { margin: 20px 0; }
+    .walkthrough :global(.architecture-node) { min-width: 0; }
+    .walkthrough :global(.architecture-node span) { display: block; width: auto; height: auto; background: transparent; color: inherit; margin-top: 10px; font-weight: normal; }
+    .walkthrough :global(.ai-workflow) { border-top: 1px solid #d6e2f0; margin-top: 3rem; padding-top: 1rem; }
+  </style>
+</BaseLayout>
