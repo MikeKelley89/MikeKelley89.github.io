@@ -202,3 +202,46 @@ a.button:focus-visible, button.button:focus-visible {
   outline: 3px solid var(--orange);
   outline-offset: 3px;
 }
+
+/* Unified hero treatment across portfolio routes */
+.hero.wrap, .page-hero.wrap {
+  position: relative;
+  isolation: isolate;
+  margin-top: 28px;
+  margin-bottom: 28px;
+  padding: clamp(32px, 5vw, 60px);
+  border-radius: 14px;
+  background: linear-gradient(120deg, #142b4a 0%, #1c426e 75%, #255484 100%);
+  color: #fff;
+  overflow: hidden;
+}
+.hero.wrap::after, .page-hero.wrap::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 310px;
+  height: 310px;
+  border: 45px solid rgba(255,255,255,.045);
+  border-radius: 50%;
+  right: -110px;
+  top: -130px;
+  pointer-events: none;
+}
+.hero.wrap h1, .page-hero.wrap h1 { color: #fff; }
+.hero.wrap .eyebrow, .page-hero.wrap .eyebrow { color: #ffbd73; }
+.hero.wrap .lede, .page-hero.wrap .lede { color: #e2eaf6; }
+.hero.wrap .button.secondary, .page-hero.wrap .button.secondary {
+  background: transparent;
+  border-color: #9bb5d1;
+  color: #fff;
+}
+.hero.wrap .button.secondary:hover, .page-hero.wrap .button.secondary:hover {
+  background: rgba(255,255,255,.12);
+  border-color: #fff;
+  color: #fff;
+}
+.hero.wrap .proof-row, .page-hero.wrap .proof-row { border-color: rgba(255,255,255,.23); }
+.hero.wrap .proof-row span, .page-hero.wrap .proof-row span { color: #c6d8ed; }
+@media (max-width: 580px) {
+  .hero.wrap, .page-hero.wrap { margin-top: 16px; padding: 30px 22px; }
+}
