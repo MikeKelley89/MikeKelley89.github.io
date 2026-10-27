@@ -4,3 +4,13 @@
 .implementation-notes{margin-top:22px;max-width:650px;color:var(--muted)}.implementation-notes summary{cursor:pointer;color:var(--accent-dark);font-weight:750}.implementation-notes li{padding:3px 0}.timeline{max-width:900px}.timeline-item{display:grid;grid-template-columns:155px 1fr;gap:25px;padding:25px 0;border-top:1px solid var(--line)}.timeline-date{font-size:.84rem;color:var(--muted);font-weight:750;padding-top:4px}.timeline-item h3{margin:0 0 3px;font-size:1.2rem}.timeline-company{font-weight:750;margin:0 0 10px}.timeline-item p:last-child{margin-top:8px}.skill-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}.skill-groups article{border-top:2px solid #b7d4d0;padding-top:15px}.skill-groups h3{font-size:1.05rem;margin:0 0 8px}.skill-groups p{font-size:.92rem}.writing-preview h3:not(:first-of-type){margin-top:25px}.writing-preview h3{margin-top:14px}.writing-preview ul{padding-left:22px}.writing-preview li{padding:4px 0}code{font-size:.92em;overflow-wrap:anywhere}a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #e2a93b;outline-offset:3px}
 @media(max-width:760px){.feature-grid,.pipeline,.skill-groups{grid-template-columns:1fr}.check-grid{grid-template-columns:1fr}.contact-strip{align-items:flex-start;flex-direction:column}.page-hero{padding-block:55px 25px}.timeline-item{grid-template-columns:1fr;gap:5px}.timeline-date{padding:0}.api-example{padding:16px}.api-example table{font-size:.8rem}.api-example th,.api-example td{padding:7px}.site-header nav{row-gap:8px}}
 
+
+/* Interactive weather demo states */
+#weatherResults[hidden], #weatherError[hidden], #weatherAlert[hidden], #zipStatus[hidden] { display: none !important; }
+.error-text { color: #992222 !important; }
+#weatherAlert { border-color: #d7a39d; background: #fff8f7; }
+#weatherAlert h3 { margin-top: 0; }
+#weatherResults h3 { margin-top: 0; }
+#weatherResults .weather-main { margin: 20px 0; }
+#weatherResults .weather-temp span + span { font-size: 1.15rem; vertical-align: top; letter-spacing: 0; margin-left: 3px; }
+#localWeather button:disabled { opacity: .55; cursor: not-allowed; }
