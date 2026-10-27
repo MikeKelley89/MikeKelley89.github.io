@@ -14,3 +14,13 @@
 #weatherResults .weather-main { margin: 20px 0; }
 #weatherResults .weather-temp span + span { font-size: 1.15rem; vertical-align: top; letter-spacing: 0; margin-left: 3px; }
 #localWeather button:disabled { opacity: .55; cursor: not-allowed; }
+
+
+/* Weather demo request architecture */
+.architecture-flow{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr);align-items:stretch;gap:14px;margin:28px 0}
+.architecture-node{padding:22px;border:1px solid var(--line);border-radius:8px;background:#fff;min-width:0}
+.architecture-node>span{display:inline-flex;width:32px;height:32px;align-items:center;justify-content:center;border-radius:50%;background:var(--soft);color:var(--accent-dark);font-size:.82rem;font-weight:800}
+.architecture-node strong{display:block;margin-top:14px;font-size:1.08rem}
+.architecture-node p{font-size:.92rem;color:var(--muted);margin-bottom:0}
+.architecture-arrow{align-self:center;font-size:1.55rem;color:var(--accent)}
+@media(max-width:760px){.architecture-flow{grid-template-columns:1fr}.architecture-arrow{transform:rotate(90deg);justify-self:center}}
