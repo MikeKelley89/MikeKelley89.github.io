@@ -70,7 +70,7 @@ const base = import.meta.env.BASE_URL;
           </div>
           <p id="weather_conditions"></p>
         </div>
-        <p class="small-note">This is a portfolio demonstration, not an emergency weather service. It uses a configured OpenWeather API credential in client-side code, so the credential is visible to visitors. Provider-side restrictions and usage limits are important for this kind of public demo.</p>
+        <p class="small-note">This is a portfolio demonstration, not an emergency weather service. The browser calls a Cloudflare Worker; the OpenWeather key is stored as a Worker secret and is not included in client-side code. The public endpoint still needs provider-side usage limits and monitoring.</p>
       </div>
     </div>
   </section>
@@ -87,6 +87,23 @@ const base = import.meta.env.BASE_URL;
       <article><span>03</span><h3>Request conditions</h3><p>Pass latitude and longitude to One Call API 3.0, requesting imperial units and excluding unused data.</p></article>
       <article><span>04</span><h3>Present the response</h3><p>Update the page with temperature, wind, a daily summary, and the first available alert.</p></article>
     </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-heading">
+      <p class="eyebrow">REQUEST ARCHITECTURE</p>
+      <h2>The credential stays on the server.</h2>
+      <p>The browser sends a ZIP code to a narrowly scoped Cloudflare Worker. The Worker validates the request, checks a rate limit, calls OpenWeather with its secret, and returns only the location and weather fields the interface needs.</p>
+    </div>
+    <div class="architecture-flow" role="img" aria-label="Browser sends ZIP code to Cloudflare Worker. Worker validates and rate limits the request, calls OpenWeather Geocoding and One Call APIs using a server-side secret, then returns weather data for display.">
+      <article class="architecture-node"><span>01</span><strong>Browser</strong><p>Validate ZIP and request <code>/weather?zip=84010</code>.</p></article>
+      <div class="architecture-arrow" aria-hidden="true">→</div>
+      <article class="architecture-node"><span>02</span><strong>Cloudflare Worker</strong><p>Validate origin, method, input, and request rate.</p></article>
+      <div class="architecture-arrow" aria-hidden="true">→</div>
+      <article class="architecture-node"><span>03</span><strong>OpenWeather</strong><p>Resolve coordinates, retrieve weather, return a reduced response.</p></article>
+    </div>
+    <p class="small-note">The <code>OPENWEATHER_API_KEY</code> secret is available only to the Worker runtime. CORS is not authentication, and Cloudflare's rate limit is approximate, so provider-side usage limits remain important.</p>
+    <p><a class="text-link" href="https://github.com/MikeKelley89/openWeatherApi/tree/main/worker" target="_blank" rel="noreferrer">Read the Worker implementation and deployment guide ↗</a></p>
   </section>
 
   <section class="section band">
@@ -133,7 +150,7 @@ current conditions + daily summary + alerts</code></pre>
         <p>This project is intentionally small. A production version would need additional work, and identifying that work is part of the engineering judgment this sample is meant to show.</p>
       </div>
       <div class="check-grid">
-        <p><strong>Credential management</strong><br />Avoid exposing a reusable API key in browser code. Use a server-side proxy or another provider-supported approach, with restrictions and monitoring.</p>
+        <p><strong>Secret management</strong><br />The Worker keeps the provider key out of browser code. The public endpoint still needs monitoring, usage limits, and abuse controls.</p>
         <p><strong>Real input validation</strong><br />Check whether a ZIP code resolves successfully, not only whether it matches five digits.</p>
         <p><strong>Complete alert handling</strong><br />Iterate through all returned alerts instead of displaying only the first one.</p>
         <p><strong>More resilient states</strong><br />Add tests and clearer handling for empty responses, rate limits, timeouts, and partial API data.</p>
