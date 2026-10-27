@@ -13,7 +13,8 @@ const base = import.meta.env.BASE_URL;
     <h1>Mike Kelley</h1>
     <p class="lede">Technical writer and documentation leader with more than 18 years of experience, from highly technical systems and developer documentation to clear instructions for nontechnical audiences. I work across content, code, tooling, and team processes to make documentation accurate, useful, and maintainable.</p>
     <div class="actions">
-      <a class="button primary" href={`${base}resume.pdf`} download>Download resume (PDF)</a>
+      <a class="button primary" href={`${base}MikeKelley-resume.pdf`} download>Download original resume (PDF)</a>
+      <button class="button secondary" id="print-resume" type="button">Print / Save as PDF</button>
       <a class="button secondary" href={`${base}writing/`}>Writing samples</a>
     </div>
   </section>
@@ -190,4 +191,32 @@ const base = import.meta.env.BASE_URL;
       </div>
     </div>
   </section>
+<script>
+  document.querySelector<HTMLButtonElement>('#print-resume')?.addEventListener('click', () => {
+    window.print();
+  });
+</script>
+
+<style is:global>
+  @media print {
+    .site-header, .site-footer, .skip-link, #print-resume,
+    .page-hero .actions, .contact-strip, .resume-card {
+      display: none !important;
+    }
+    body { background: #fff !important; color: #111 !important; }
+    .wrap { width: 100% !important; max-width: none !important; }
+    .page-hero { padding: 0 0 12px !important; margin: 0 !important; }
+    .page-hero h1 { font-size: 25pt !important; }
+    .page-hero .lede { font-size: 10pt !important; }
+    .section { padding: 0 !important; }
+    .resume-section { display: block !important; }
+    .timeline-item { grid-template-columns: 110px 1fr !important; gap: 14px !important; break-inside: avoid; }
+    .timeline-item h3 { font-size: 11pt !important; }
+    .timeline-item p, .timeline-item li { font-size: 9pt !important; }
+    .timeline-item ul { margin-top: 4px; margin-bottom: 8px; }
+    .eyebrow { font-size: 8pt !important; }
+    a { color: inherit !important; text-decoration: none !important; }
+  }
+</style>
+
 </BaseLayout>
