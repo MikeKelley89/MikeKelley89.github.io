@@ -1,5 +1,9 @@
 name: Build and deploy portfolio
 
+runs:
+  using: 'node24'
+  main: 'main.js'
+
 on:
   push:
     branches:
