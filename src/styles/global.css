@@ -24,3 +24,147 @@
 .architecture-node p{font-size:.92rem;color:var(--muted);margin-bottom:0}
 .architecture-arrow{align-self:center;font-size:1.55rem;color:var(--accent)}
 @media(max-width:760px){.architecture-flow{grid-template-columns:1fr}.architecture-arrow{transform:rotate(90deg);justify-self:center}}
+
+
+/* Site-wide blue and orange visual system */
+:root {
+  color-scheme: light;
+  --ink: #142b4a;
+  --muted: #52657b;
+  --line: #d6dfeb;
+  --accent: #2463a6;
+  --accent-dark: #174b82;
+  --paper: #ffffff;
+  --soft: #edf3fa;
+  --orange: #f28c28;
+  --orange-dark: #a94f00;
+  --navy: #142b4a;
+  --blue: #2463a6;
+  background: #f4f7fb;
+  color: var(--ink);
+}
+body { background: #f4f7fb; color: var(--ink); }
+a { color: var(--accent-dark); }
+a:hover { color: var(--navy); }
+.site-header {
+  background: rgba(20, 43, 74, .98);
+  border-bottom: 3px solid var(--orange);
+  color: #fff;
+}
+.wordmark, .site-header .wordmark { color: #fff; }
+.wordmark span { color: var(--orange); }
+.site-header nav a { color: #d9e5f2; }
+.site-header nav a:hover,
+.site-header nav a[aria-current="page"] {
+  color: #fff;
+  text-decoration-color: var(--orange);
+  text-decoration-thickness: 3px;
+}
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(48px, 7vw, 88px) clamp(24px, 5vw, 64px);
+  margin-top: 34px;
+  margin-bottom: 28px;
+  border-radius: 10px;
+  background: var(--navy);
+  color: #fff;
+  overflow: hidden;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 280px;
+  height: 280px;
+  right: -90px;
+  bottom: -150px;
+  border: 34px solid rgba(242, 140, 40, .18);
+  border-radius: 50%;
+}
+.hero h1 { color: #fff; }
+.hero .lede, .hero .proof-row span { color: #d9e5f2; }
+.hero .eyebrow { color: #ffb15d; }
+.proof-row { border-color: #405774; }
+.primary, .button.primary {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: var(--navy);
+  font-weight: 750;
+}
+.primary:hover, .button.primary:hover {
+  background: #ffad54;
+  border-color: #ffad54;
+  color: var(--navy);
+}
+.secondary, .button.secondary {
+  border-color: #9fb4cd;
+  color: var(--navy);
+  background: #fff;
+}
+.hero .secondary, .hero .button.secondary {
+  border-color: #8ba5c3;
+  background: transparent;
+  color: #fff;
+}
+.hero .secondary:hover, .hero .button.secondary:hover {
+  border-color: var(--orange);
+  background: rgba(255,255,255,.08);
+}
+.eyebrow, .tag, .feature-number { color: var(--accent-dark); }
+.band { background: var(--soft); border-color: #d6e2f0; }
+.project-card, .sample, .writing-preview, .resume-card,
+.feature-card, .pipeline article, .api-example, .architecture-node {
+  border-color: var(--line);
+  box-shadow: 0 3px 12px rgba(20, 43, 74, .035);
+}
+.project-card { border-top: 3px solid var(--blue); }
+.project-card:hover { border-color: var(--orange); }
+.feature-card { border-top: 3px solid var(--blue); }
+.feature-card:hover { border-top-color: var(--orange); }
+.tag { color: var(--accent-dark); }
+.text-link, .sample a, .writing-preview a { color: var(--accent-dark); }
+.text-link:hover, .sample a:hover, .writing-preview a:hover { color: var(--orange-dark); }
+.terminal, .repo-tree, .code-panel {
+  background: #142b4a;
+  color: #e8f0fa;
+  box-shadow: 0 14px 34px rgba(20, 43, 74, .14);
+}
+.terminal-top { border-color: #405774; color: #c4d4e7; }
+.code-green { color: #ffb15d; }
+.code-muted { color: #a9bfd9; }
+.input-row input, #zip {
+  border-color: #aebed0;
+  background: #fff;
+  color: var(--ink);
+}
+.input-row input:focus, #zip:focus {
+  border-color: var(--blue);
+  outline: 3px solid rgba(36, 99, 166, .18);
+}
+.weather-result { border-color: var(--line); }
+#conditions { color: var(--accent-dark); }
+.method-pill {
+  background: #dceaf9;
+  color: #174b82;
+}
+.architecture-node > span, .pipeline article > span {
+  background: #dceaf9;
+  color: #174b82;
+}
+.architecture-arrow { color: var(--orange-dark); }
+.architecture-node strong { color: var(--navy); }
+.skill-groups article { border-top-color: var(--orange); }
+.site-footer {
+  margin-top: 24px;
+  border-top: 1px solid #d6dfeb;
+  color: var(--muted);
+}
+.skip-link { border-color: var(--orange); }
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {
+  outline-color: var(--orange);
+}
+@media (max-width: 760px) {
+  .hero { margin-top: 18px; padding: 42px 24px; }
+  .site-header nav a[aria-current="page"] { text-underline-offset: 4px; }
+}
