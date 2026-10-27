@@ -21,7 +21,7 @@ const base = import.meta.env.BASE_URL;
     return;
   }
 
-  $('#message').text(`Ready to search for: ${query}`);
+  $('#message').text('Ready to search for: ' + query);
 });</code></pre><p class="small-note">Illustrative code snippet. The linked standalone sample contains the runnable implementation.</p></div></section>
   <section class="section band"><div class="wrap"><h2>Engineering decisions worth calling out</h2><div class="check-grid"><p><strong>Input validation</strong><br />Reject malformed input before making a network request.</p><p><strong>Loading state</strong><br />Tell the user what is happening and prevent duplicate submissions.</p><p><strong>Error handling</strong><br />Provide useful feedback when a service is unavailable or returns no result.</p><p><strong>Accessible updates</strong><br />Use labels and live regions so dynamic feedback is perceivable.</p></div></div></section>
 
