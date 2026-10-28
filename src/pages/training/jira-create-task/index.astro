@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Jira Cloud Task Training Guide | Mike Kelley" description="A task-based software training guide demonstrating how to create, assign, and verify a work item in Jira Cloud.">
+  <section class="page-hero wrap">
+    <p class="eyebrow">SOFTWARE TRAINING SAMPLE / JIRA CLOUD</p>
+    <h1>Create and Assign a Task in Jira Cloud</h1>
+    <p class="lede">A beginner-friendly training guide showing how to create a work item, assign responsibility, and verify that the task is ready to track.</p>
+  </section>
+  <article class="section wrap" style="max-width:900px">
+    <p class="small-note">Audience: New team members · Estimated time: 5–7 minutes · Level: Beginner</p>
+    <h2>Learning objective</h2>
+    <p>After this lesson, you will be able to create a Jira work item, assign it to a teammate, and confirm that the task is ready to be tracked.</p>
+    <h2>Before you begin</h2>
+    <p>Sign in to Jira Cloud. You need access to a Jira space (previously called a project), permission to create work items, and permission to assign them. Available fields may differ depending on your organization's configuration.</p>
+    <h2>Scenario</h2>
+    <p>Your team needs to update an onboarding checklist. You will create a task describing the change and assign it to the person responsible for completing it.</p>
+    <h2>Create the task</h2>
+    <ol>
+      <li>In the Jira navigation bar, select <strong>Create (+)</strong>. A work-item creation dialog opens.</li>
+      <li>Check the <strong>Space</strong> and <strong>Work type</strong> at the top of the dialog. Select your team's space and choose <strong>Task</strong>, if available.</li>
+      <li>In <strong>Title</strong> (called <strong>Summary</strong> in some Jira versions), enter <strong>Update the new-hire onboarding checklist</strong>.</li>
+      <li>In <strong>Description</strong>, enter the task details and completion criteria shown below.</li>
+    </ol>
+    <div class="feature-card" style="margin:14px 0 20px">
+      <h3>Example task description</h3>
+      <p>Review the new-hire onboarding checklist and update any outdated links or instructions.</p>
+      <p><strong>Completion criteria</strong></p>
+      <ul><li>All checklist links open successfully</li><li>Outdated steps are corrected</li><li>The revised checklist is ready for team review</li></ul>
+    </div>
+    <ol start="5">
+      <li>Locate <strong>Assignee</strong> and choose the teammate responsible for the update. If the field is hidden, expand to the full form or use <strong>Configure fields</strong>. You can also assign the work item after creating it.</li>
+      <li>Complete any additional required fields, then select <strong>Create</strong>.</li>
+    </ol>
+    <h2>Verify your work</h2>
+    <p>Open the new work item using its confirmation link, your space's list, or its board. Confirm that the title, description, and assignee match what you entered. Record the work-item key, such as <strong>TEAM-123</strong>, so you can share or find the task later.</p>
+    <h2>Practice activity</h2>
+    <p>In a training or test space, create a second task titled <strong>Review the support FAQ</strong>. Assign it to yourself and add one sentence explaining what a successful review should accomplish.</p>
+    <h2>Success check</h2>
+    <p>You are finished when you can open the practice task and show its title, assigned owner, and completion criteria without assistance.</p>
+    <h2>If something does not match</h2>
+    <p><strong>Cannot find Task:</strong> Work types vary by space. Ask your team which type to use.</p>
+    <p><strong>Cannot assign a teammate:</strong> Check whether the person has access and whether you have assignment permission.</p>
+    <p><strong>Missing fields:</strong> Expand the creation form or update the work item after it is created.</p>
+    <h2>Reference</h2>
+    <p>Jira Cloud labels and layouts may vary by rollout and space configuration. This sample follows Atlassian's current work-item terminology. <a href="https://support.atlassian.com/jira-software-cloud/docs/create-a-work-item-and-a-subtask/" target="_blank" rel="noopener noreferrer">Atlassian Support: Create a work item and a subtask ↗</a></p>
+    <p class="small-note">Training guide prepared by Mike Kelley · Portfolio writing sample</p>
+  </article>
+</BaseLayout>
