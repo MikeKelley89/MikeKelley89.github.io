@@ -14,7 +14,7 @@
       return;
     }
     const slug = (text) => text.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-    const startCase = (value) => value.toLocaleLowerCase('en-US').replace(/(^|[\\s/·&-])([a-z])/g, (_, separator, letter) => separator + letter.toLocaleUpperCase('en-US'));
+    const startCase = (value) => value.toLocaleLowerCase('en-US').replace(/(^|[\s/·&-])([a-z])/g, (_, separator, letter) => separator + letter.toLocaleUpperCase('en-US'));
     const items = [];
     for (const [index, section] of sections.entries()) {
       const eyebrow = section.querySelector('.eyebrow');
