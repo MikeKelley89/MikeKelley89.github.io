@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
 ---
 <BaseLayout title="Jira Cloud Task Training Guide | Mike Kelley" description="A task-based software training guide demonstrating how to create, assign, and verify a work item in Jira Cloud.">
   <section class="page-hero wrap">
@@ -8,8 +9,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     <p class="lede">A beginner-friendly training guide showing how to create a work item, assign responsibility, and verify that the task is ready to track.</p>
   </section>
   <section class="section wrap" style="padding-bottom:0;max-width:900px">
-    <p>This guide is available to read online. For a PDF copy, use your browser's Print command and select <strong>Save as PDF</strong>.</p>
-    <p><button class="button secondary" type="button" id="print-training-guide">Print or save as PDF</button></p>
+    <p>Prefer a printable copy? Download the formatted two-page training guide.</p>
+    <p><a class="button secondary" href={`${base}Jira_Cloud_Task_Training_Guide.pdf`} download>Download training guide (PDF)</a></p>
     <p><a href="/writing/">Browse more writing samples ↗</a></p>
   </section>
   <article class="section wrap" style="max-width:900px">
@@ -51,7 +52,4 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     <p>Jira Cloud labels and layouts may vary by rollout and space configuration. This sample follows Atlassian's current work-item terminology. <a href="https://support.atlassian.com/jira-software-cloud/docs/create-a-work-item-and-a-subtask/" target="_blank" rel="noopener noreferrer">Atlassian Support: Create a work item and a subtask ↗</a></p>
     <p class="small-note">Training guide prepared by Mike Kelley · Portfolio writing sample</p>
   </article>
-  <script is:inline>
-    document.getElementById('print-training-guide')?.addEventListener('click', () => window.print());
-  </script>
 </BaseLayout>
