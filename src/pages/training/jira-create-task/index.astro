@@ -7,6 +7,11 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     <h1>Create and Assign a Task in Jira Cloud</h1>
     <p class="lede">A beginner-friendly training guide showing how to create a work item, assign responsibility, and verify that the task is ready to track.</p>
   </section>
+  <section class="section wrap" style="padding-bottom:0;max-width:900px">
+    <p>This guide is available to read online. For a PDF copy, use your browser's Print command and select <strong>Save as PDF</strong>.</p>
+    <p><button class="button secondary" type="button" id="print-training-guide">Print or save as PDF</button></p>
+    <p><a href="/writing/">Browse more writing samples ↗</a></p>
+  </section>
   <article class="section wrap" style="max-width:900px">
     <p class="small-note">Audience: New team members · Estimated time: 5–7 minutes · Level: Beginner</p>
     <h2>Learning objective</h2>
@@ -46,4 +51,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     <p>Jira Cloud labels and layouts may vary by rollout and space configuration. This sample follows Atlassian's current work-item terminology. <a href="https://support.atlassian.com/jira-software-cloud/docs/create-a-work-item-and-a-subtask/" target="_blank" rel="noopener noreferrer">Atlassian Support: Create a work item and a subtask ↗</a></p>
     <p class="small-note">Training guide prepared by Mike Kelley · Portfolio writing sample</p>
   </article>
+  <script is:inline>
+    document.getElementById('print-training-guide')?.addEventListener('click', () => window.print());
+  </script>
 </BaseLayout>
