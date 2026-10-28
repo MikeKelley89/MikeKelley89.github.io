@@ -245,3 +245,45 @@ a.button:focus-visible, button.button:focus-visible {
 @media (max-width: 580px) {
   .hero.wrap, .page-hero.wrap { margin-top: 16px; padding: 30px 22px; }
 }
+
+
+/* Card interaction semantics: movement is reserved for cards that are links. */
+a.project-card {
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+a.project-card:hover,
+a.project-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--orange);
+  box-shadow: 0 10px 24px rgba(20, 43, 74, .12);
+}
+.feature-card,
+.sample,
+.writing-preview,
+.pipeline article {
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.feature-card:hover,
+.sample:hover,
+.writing-preview:hover,
+.pipeline article:hover {
+  box-shadow: 0 5px 16px rgba(20, 43, 74, .065);
+}
+.sample:hover,
+.writing-preview:hover,
+.pipeline article:hover {
+  border-color: #c5d3e0;
+}
+@media (prefers-reduced-motion: reduce) {
+  a.project-card,
+  .feature-card,
+  .sample,
+  .writing-preview,
+  .pipeline article {
+    transition: none;
+  }
+  a.project-card:hover,
+  a.project-card:focus-visible {
+    transform: none;
+  }
+}
