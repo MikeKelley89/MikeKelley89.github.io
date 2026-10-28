@@ -18,6 +18,18 @@ const currentPath = Astro.url.pathname;
     <meta name="description" content={description} />
     <meta name="theme-color" content="#142b4a" />
     <title>{title}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" />
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        if (window.Prism) {
+          window.Prism.plugins.autoloader.languages_path =
+            'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/';
+          window.Prism.highlightAll();
+        }
+      });
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
