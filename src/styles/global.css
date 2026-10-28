@@ -298,8 +298,8 @@ a.project-card:focus-visible {
 @media (min-width: 1200px) {
   .page-with-toc:has(.on-this-page:not([hidden])) {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 188px;
-    gap: 32px;
+    grid-template-columns: minmax(0, 1fr) clamp(188px, 17vw, 224px);
+    gap: clamp(24px, 3vw, 44px);
     padding-right: max(22px, calc((100vw - 1450px) / 2));
   }
   .page-with-toc:has(.on-this-page:not([hidden])) #page-content .wrap {
@@ -320,14 +320,14 @@ a.project-card:focus-visible {
   #page-toc-list a {
     display: block;
     margin-left: -2px;
-    padding: 9px 10px 9px 12px;
+    padding: 11px 10px 11px 12px;
     border-left: 3px solid transparent;
     border-radius: 0 5px 5px 0;
     color: #465b70;
-    font-size: .74rem;
-    font-weight: 650;
+    font-size: .875rem;
+    font-weight: 550;
     line-height: 1.45;
-    letter-spacing: .025em;
+    letter-spacing: 0;
     text-decoration: none;
     transition: color .2s ease, background-color .2s ease, border-color .2s ease;
   }
