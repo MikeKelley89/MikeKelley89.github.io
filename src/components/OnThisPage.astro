@@ -1,0 +1,71 @@
+<aside class="on-this-page" aria-label="Section navigation">
+  <nav aria-label="On this page">
+    <p class="toc-title">ON THIS PAGE</p>
+    <ol id="page-toc-list"></ol>
+  </nav>
+</aside>
+<script is:inline>
+  (() => {
+    const toc = document.querySelector('.on-this-page');
+    const list = document.getElementById('page-toc-list');
+    const sections = [...document.querySelectorAll('#page-content [data-toc-section]')];
+    if (!toc || !list || sections.length < 2) {
+      if (toc) toc.hidden = true;
+      return;
+    }
+    const slug = (text) => text.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const items = [];
+    for (const [index, section] of sections.entries()) {
+      const eyebrow = section.querySelector('.eyebrow');
+      if (!eyebrow) continue;
+      const label = eyebrow.textContent.trim();
+      if (!label) continue;
+      if (!section.id) {
+        const base = 'section-' + (slug(label) || index + 1);
+        let id = base, suffix = 2;
+        while (document.getElementById(id)) id = base + '-' + suffix++;
+        section.id = id;
+      }
+      const li = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = '#' + encodeURIComponent(section.id);
+      link.textContent = label;
+      li.append(link);
+      list.append(li);
+      items.push({section, link});
+    }
+    if (items.length < 2) { toc.hidden = true; return; }
+    const activate = (index) => items.forEach((item, i) => {
+      if (i === index) item.link.setAttribute('aria-current', 'location');
+      else item.link.removeAttribute('aria-current');
+    });
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const readingLine = window.innerHeight * 0.36;
+      let active = 0;
+      items.forEach(({section}, index) => {
+        if (section.getBoundingClientRect().top <= readingLine) active = index;
+      });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) active = items.length - 1;
+      activate(active);
+    };
+    const schedule = () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    };
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(schedule, {rootMargin: '-20% 0px -40% 0px'});
+      items.forEach(({section}) => observer.observe(section));
+    }
+    window.addEventListener('scroll', schedule, {passive:true});
+    window.addEventListener('resize', schedule, {passive:true});
+    window.addEventListener('hashchange', schedule);
+    list.addEventListener('click', (event) => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link) return;
+      const index = items.findIndex(item => item.link === link);
+      if (index !== -1) activate(index);
+    });
+    update();
+  })();
+</script>
