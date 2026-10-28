@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import OnThisPage from '../components/OnThisPage.astro';
 
 interface Props {
   title: string;
@@ -43,8 +44,9 @@ const currentPath = Astro.url.pathname;
         <a href={`${base}resume/`}>Resume</a>
       </nav>
     </header>
-    <main id="main">
-      <slot />
+    <main id="main" class="page-with-toc">
+      <div id="page-content"><slot /></div>
+      <OnThisPage />
     </main>
     <footer class="site-footer wrap">
       <span>Mike Kelley · Technical Writing & Documentation Engineering</span>
