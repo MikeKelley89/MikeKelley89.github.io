@@ -14,6 +14,7 @@
       return;
     }
     const slug = (text) => text.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const startCase = (value) => value.toLocaleLowerCase('en-US').replace(/(^|[\\s/·&-])([a-z])/g, (_, separator, letter) => separator + letter.toLocaleUpperCase('en-US'));
     const items = [];
     for (const [index, section] of sections.entries()) {
       const eyebrow = section.querySelector('.eyebrow');
@@ -29,7 +30,7 @@
       const li = document.createElement('li');
       const link = document.createElement('a');
       link.href = '#' + encodeURIComponent(section.id);
-      link.textContent = label;
+      link.textContent = startCase(label);
       li.append(link);
       list.append(li);
       items.push({section, link});
