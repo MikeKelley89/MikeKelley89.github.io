@@ -57,7 +57,7 @@ const base = import.meta.env.BASE_URL;
           <p>
             Validate the ZIP code as the user edits the field. The client enables submission only when the value contains exactly five digits. The Worker repeats this validation because client-side checks can be bypassed.
           </p>
-          <pre class="walkthrough-code"><code>
+          <pre class="walkthrough-code language-javascript"><code class="language-javascript">
 function validZip(value) &#123;
   return /^\d&#123;5&#125;$/.test(value);
 &#125;
@@ -77,7 +77,7 @@ $zip.on("input", function () &#123;
           <p>
             Intercept form submission, validate again, clear any previous results, and disable the button while the request is in progress.
           </p>
-          <pre class="walkthrough-code"><code>
+          <pre class="walkthrough-code language-javascript"><code class="language-javascript">
 $form.on("submit", function (event) &#123;
   event.preventDefault();
   const zip = $zip.val().trim();
@@ -98,7 +98,7 @@ $form.on("submit", function (event) &#123;
           <p>
             Send one GET request to the Worker. The ZIP code is a query parameter; the browser does not call OpenWeather directly and does not receive the API key.
           </p>
-          <pre class="walkthrough-code"><code>
+          <pre class="walkthrough-code language-javascript"><code class="language-javascript">
 $.ajax(&#123;
   url: weatherEndpoint,
   method: "GET",
@@ -118,7 +118,7 @@ $.ajax(&#123;
           <p>
             The Worker validates the request and calls the Geocoding API, then One Call API 3.0. It returns a reduced response with a <code>location</code> object and a <code>weather</code> object. This excerpt shows the successful response shape.
           </p>
-          <pre class="walkthrough-code"><code>
+          <pre class="walkthrough-code language-javascript"><code class="language-javascript">
 // Cloudflare Worker: response payload
 return jsonResponse(&#123;
   location: &#123;
@@ -141,7 +141,7 @@ return jsonResponse(&#123;
           <p>
             Read the response using the same property paths returned by the Worker. The client checks optional fields before displaying them and inserts values with <code>.text()</code>, rather than interpreting API data as HTML.
           </p>
-          <pre class="walkthrough-code"><code>
+          <pre class="walkthrough-code language-javascript"><code class="language-javascript">
 const location = payload.location || &#123;&#125;;
 const weather = payload.weather || &#123;&#125;;
 const current = weather.current || &#123;&#125;;
@@ -173,7 +173,7 @@ $("#weather_conditions").text(
           <p>
             If the response includes weather alerts, the client displays the first alert. The API returns alert timestamps in Unix seconds, so the client multiplies them by 1,000 before creating JavaScript <code>Date</code> objects. Missing alert fields receive fallback text.
           </p>
-          <pre class="walkthrough-code"><code>
+          <pre class="walkthrough-code language-javascript"><code class="language-javascript">
 const alerts = Array.isArray(weather.alerts) ? weather.alerts : [];
 if (alerts.length) &#123;
   const alert = alerts[0];
@@ -198,7 +198,7 @@ if (alerts.length) &#123;
           <p>
             On failure, the client reads the Worker's structured <code>error.message</code> when available. Otherwise, it uses a generic message, with a separate timeout explanation. The Worker maps upstream errors to safe messages rather than forwarding provider response bodies.
           </p>
-          <pre class="walkthrough-code"><code>
+          <pre class="walkthrough-code language-javascript"><code class="language-javascript">
 function showError(xhr, fallback) &#123;
   const payload = xhr.responseJSON || &#123;&#125;;
   const message = payload.error &amp;&amp; payload.error.message
@@ -330,7 +330,7 @@ function showError(xhr, fallback) &#123;
     .walkthrough :global(p), .walkthrough :global(li) { line-height: 1.75; }
     .walkthrough :global(li) { margin-bottom: .8rem; }
     .walkthrough :global(pre.walkthrough-code) { overflow-x: auto; background: #142b4a; color: #e8f0fa; padding: 20px; border-radius: 8px; line-height: 1.65; font-size: .85rem; white-space: pre; }
-    .walkthrough :global(pre.walkthrough-code code) { color: inherit; overflow-wrap: normal; }
+    .walkthrough :global(pre.walkthrough-code code) { overflow-wrap: normal; }
     .walkthrough :global(.notificationNote), .walkthrough :global(.ai-workflow-note) { border-left: 3px solid #d78b32; padding: 12px 18px; background: #f1f5f8; border-radius: 4px; }
     .walkthrough :global(.architecture-flow) { margin: 20px 0; }
     .walkthrough :global(.architecture-node) { min-width: 0; }
