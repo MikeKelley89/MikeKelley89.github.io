@@ -14,7 +14,12 @@
       return;
     }
     const slug = (text) => text.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-    const startCase = (value) => value.toLocaleLowerCase('en-US').replace(/(^|[\s/·&-])([a-z])/g, (_, separator, letter) => separator + letter.toLocaleUpperCase('en-US'));
+    const sentenceCase = (value) => {
+      const properNames = {api:'API', ai:'AI', hp:'HP', ci:'CI', cd:'CD', jira:'Jira', saltstack:'SaltStack', openweather:'OpenWeather', github:'GitHub', saas:'SaaS'};
+      const lower = value.toLocaleLowerCase('en-US');
+      const restored = lower.replace(/\b(api|ai|hp|ci|cd|jira|saltstack|openweather|github|saas)\b/g, word => properNames[word]);
+      return restored.replace(/[a-z]/, letter => letter.toLocaleUpperCase('en-US'));
+    };
     const items = [];
     for (const [index, section] of sections.entries()) {
       const eyebrow = section.querySelector('.eyebrow');
@@ -30,7 +35,7 @@
       const li = document.createElement('li');
       const link = document.createElement('a');
       link.href = '#' + encodeURIComponent(section.id);
-      link.textContent = startCase(label);
+      link.textContent = sentenceCase(label);
       li.append(link);
       list.append(li);
       items.push({section, link});
