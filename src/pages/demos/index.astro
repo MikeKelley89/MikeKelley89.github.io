@@ -153,14 +153,14 @@ const base = import.meta.env.BASE_URL;
         <p><a class="text-link" href={`${base}demos/openweather/`} target="_blank" rel="noreferrer">Read the integrated code walkthrough ↗</a></p>
       </div>
       <div class="code-panel">
-        <pre><code>// 1. Resolve a ZIP code to coordinates
-GET /geo/1.0/zip
+        <pre class="language-javascript"><code class="language-javascript">// 1. Resolve a ZIP code to coordinates
+const location = await geocode(zip);
 
 // 2. Request weather for those coordinates
-GET /data/3.0/onecall
+const weather = await getWeather(location.lat, location.lon);
 
 // 3. Present the response
-current conditions + daily summary + alerts</code></pre>
+renderWeather(weather.current, weather.daily, weather.alerts);</code></pre>
         <p class="small-note">Simplified request flow for illustration.</p>
       </div>
     </div>
